@@ -3,7 +3,7 @@ package org.insa.graph;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import java.util.ListIterator ;
 /**
  * <p>
  * Class representing a path between nodes in a graph.
@@ -41,7 +41,7 @@ public class Path {
     }
 
     /**
-     * * author : DIARRA
+     * author : DIARRA
      * Create a new path that goes through the given list of nodes (in order),
      * choosing the shortest route if multiple are available.
      * 
@@ -52,13 +52,17 @@ public class Path {
      * 
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
-     * 
-     * @deprecated Need to be implemented.
+     * @deprecated
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
+    	
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+       /* ListIterator<Node> it = nodes.listIterator() ;
+        Node current =  nodes.get(0);
+        while(it.hasNext()) {
+        	
+        }*/
         return new Path(graph, arcs);
     }
 
@@ -188,7 +192,7 @@ public class Path {
 
     /**
      * Check if this path is valid.
-     * * author : DIARRA
+     * author : DIARRA
      * A path is valid if any of the following is true:
      * <ul>
      * <li>it is empty;</li>
@@ -200,11 +204,28 @@ public class Path {
      * 
      * @return true if the path is valid, false otherwise.
      * 
-     * @deprecated Need to be implemented.
+     * 
      */
     public boolean isValid() {
-        // TODO:
-        return false;
+    	List<Arc> arcs = this.getArcs() ;
+    	ListIterator<Arc> it = arcs.listIterator() ;
+    	Arc current ;
+    	Arc previous ;
+    	if(this.isEmpty() || this.size() == 1) {
+        	return true ;
+    	}
+    	if(arcs.get(0).getOrigin() == this.origin) {
+    		previous = it.next() ;
+    		current = it.next();
+    		while(it.hasNext() && (previous.getDestination() == current.getOrigin())) {	
+	        	previous = current;
+	        	current = it.next();
+	        }
+	        if(!it.hasNext() || previous.getDestination() == current.getOrigin()){
+	        	return true ;
+	        }
+    	}
+	     return false;
     }
 
     /**
@@ -228,11 +249,17 @@ public class Path {
      * @return Time (in seconds) required to travel this path at the given speed (in
      *         kilometers-per-hour).
      * 
-     * @deprecated Need to be implemented.
      */
     public double getTravelTime(double speed) {
-        // TODO:
-        return 0;
+    	List<Arc> arcs = this.getArcs() ;
+    	ListIterator<Arc> it = arcs.listIterator() ;
+    	double travelTime = 0 ;
+    	if(!this.isEmpty()) {
+	        while(it.hasNext()) {
+	        	travelTime += (it.next().getTravelTime(speed));
+	        }
+    	}
+    	return travelTime ;
     }
 
     /**
