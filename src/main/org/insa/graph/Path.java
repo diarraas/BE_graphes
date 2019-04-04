@@ -20,6 +20,7 @@ import java.util.ListIterator;
 public class Path {
 
     /**
+     * author : DHOUIB
      * Create a new path that goes through the given list of nodes (in order),
      * choosing the fastest route if multiple are available.
      * 
@@ -48,6 +49,7 @@ public class Path {
     }
 
     /**
+     * * author : DIARRA
      * Create a new path that goes through the given list of nodes (in order),
      * choosing the shortest route if multiple are available.
      * 
@@ -194,7 +196,7 @@ public class Path {
 
     /**
      * Check if this path is valid.
-     * 
+     * * author : DIARRA
      * A path is valid if any of the following is true:
      * <ul>
      * <li>it is empty;</li>
@@ -214,6 +216,7 @@ public class Path {
     }
 
     /**
+     * author : DHOUIB
      * Compute the length of this path (in meters).
      * 
      * @return Total length of the path (in meters).
@@ -234,7 +237,7 @@ public class Path {
 
     /**
      * Compute the time required to travel this path if moving at the given speed.
-     * 
+     * author : DIARRA
      * @param speed Speed to compute the travel time.
      * 
      * @return Time (in seconds) required to travel this path at the given speed (in
@@ -248,6 +251,7 @@ public class Path {
     }
 
     /**
+     * author : DHOUIB
      * Compute the time to travel this path if moving at the maximum allowed speed
      * on every arc.
      * 
