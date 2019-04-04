@@ -3,6 +3,7 @@ package org.insa.graph;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * <p>
@@ -36,6 +37,13 @@ public class Path {
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
         // TODO:
+        /*ListIterator<Node> it = nodes.listIterator();
+        while (it.hasNext()) {
+        	Node element=it.next();
+        	if(element.getSuccessors().contains(it.next()){
+        		
+        	}
+        }*/
         return new Path(graph, arcs);
     }
 
@@ -214,7 +222,14 @@ public class Path {
      */
     public float getLength() {
         // TODO:
-        return 0;
+    	float length=0;
+    	List<Arc> arcs =this.getArcs();  	
+    	ListIterator<Arc> it = arcs.listIterator();
+    	while(it.hasNext()) {
+    		Arc ce_arc = it.next();
+    		length=length + ce_arc.getLength();
+    	}
+        return length;
     }
 
     /**
@@ -242,7 +257,14 @@ public class Path {
      */
     public double getMinimumTravelTime() {
         // TODO:
-        return 0;
+    	double time=0;
+    	List<Arc> arcs =this.getArcs();  	
+    	ListIterator<Arc> it = arcs.listIterator();
+    	while(it.hasNext()) {
+    		Arc ce_arc=it.next();
+    		time= time+ce_arc.getMinimumTravelTime();
+    	}
+        return time;
     }
 
 }
