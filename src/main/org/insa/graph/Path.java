@@ -65,13 +65,31 @@ public class Path {
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
-    	
         List<Arc> arcs = new ArrayList<Arc>();
-       /* ListIterator<Node> it = nodes.listIterator() ;
-        Node current =  nodes.get(0);
-        while(it.hasNext()) {
-        	
-        }*/
+	//TODO:
+       /* 
+       if (nodes.size() == 0) {
+				return new Path(graph);
+			}
+			else if (nodes.size() == 1) {
+				return new Path(graph, nodes.get(0));
+			}
+			
+			ListIterator<Node> it = nodes.listIterator() ;
+      Node first_node =  nodes.get(0);
+      Node current_node = NULL ;
+       
+      while(it.hasNext()) {
+      	Node previous_nodes = it.next();
+      	Iterator<Arc> arc_it = previous_nodes.iterator();
+      	while(arc_it.hasNext()){
+      		Arc current_arc = arc_it.next();
+      		if(current_arc.getDestination().equals(previous_node)){
+      			current_arc = arc... ;
+      			}
+      		}
+      	} 	
+      }*/
         return new Path(graph, arcs);
     }
 
@@ -246,7 +264,6 @@ public class Path {
      * @deprecated Need to be implemented.
      */
     public float getLength() {
-        // TODO:
     	float length=0;
     	List<Arc> arcs =this.getArcs();  	
     	ListIterator<Arc> it = arcs.listIterator();
@@ -288,7 +305,6 @@ public class Path {
      * @deprecated Need to be implemented.
      */
     public double getMinimumTravelTime() {
-        // TODO:
     	double time=0;
     	List<Arc> arcs =this.getArcs();  	
     	ListIterator<Arc> it = arcs.listIterator();
