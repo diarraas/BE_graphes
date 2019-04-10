@@ -61,18 +61,55 @@ public class Path {
      * 
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
-     * @deprecated
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
-    	
+        
+        if(graph.size()==0) {
+        	return new Path(graph);
+        }
+        
+        if(graph.size() == 1) {
+        	return new Path(graph, nodes.get(0));
+        }
+        
         List<Arc> arcs = new ArrayList<Arc>();
-       /* ListIterator<Node> it = nodes.listIterator() ;
-        Node current =  nodes.get(0);
+        ListIterator<Node> it = nodes.listIterator() ;
+        Node previous_node = null;
+        Node current_node = it.next();
+        
         while(it.hasNext()) {
+        	previous_node = current_node;
+            current_node = it.next();
+        	List<Arc> successors = previous_node.getSuccessors() ;
+        	ListIterator<Arc> arc_it = successors.listIterator() ;
+        	Arc previous_arc = null ;
+        	Arc current_arc = arc_it.next();
+        	Arc optimal_arc = null ;
+        	Arc essai = null ;
+        	while(arc_it.hasNext()) {
+        		previous_arc = current_arc ;
+        		current_arc = arc_it.next();
+        		if(previous_arc.getDestination() == current_node) { //bon successeur
+        			essai = previous_arc ;
+        			if(optimal_arc!=null) {
+        				if(essai.getLength() < optimal_arc.getLength()) {
+        				optimal_arc = essai ;
+        			}else {
+        				optimal_arc = essai ;
+        			}
+        		}
+	        if(optimal_arc != null) {
+	        	arcs.add(optimal_arc);
+	        }else{
+	        	throw new IllegalArgumentException("Invalid list of nodes.");
+	        }
         	
-        }*/
+        }
+        	}
+        }
         return new Path(graph, arcs);
+       
     }
 
     /**
@@ -243,10 +280,8 @@ public class Path {
      * 
      * @return Total length of the path (in meters).
      * 
-     * @deprecated Need to be implemented.
      */
     public float getLength() {
-        // TODO:
     	float length=0;
     	List<Arc> arcs =this.getArcs();  	
     	ListIterator<Arc> it = arcs.listIterator();
@@ -285,10 +320,8 @@ public class Path {
      * 
      * @return Minimum travel time to travel this path (in seconds).
      * 
-     * @deprecated Need to be implemented.
      */
     public double getMinimumTravelTime() {
-        // TODO:
     	double time=0;
     	List<Arc> arcs =this.getArcs();  	
     	ListIterator<Arc> it = arcs.listIterator();
