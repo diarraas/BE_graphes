@@ -33,20 +33,47 @@ public class Path {
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
      * 
-     * @deprecated Need to be implemented.
      */
     public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
+    	if(nodes.size()==0) {
+        	return new Path(graph);
+        }
+        if(nodes.size() == 1) {
+        	return new Path(graph, nodes.get(0));
+        }
+   
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
-        /*ListIterator<Node> it = nodes.listIterator();
-        while (it.hasNext()) {
-        	Node element=it.next();
-        	if(element.getSuccessors().contains(it.next()){
-        		
+        ListIterator<Node> it = nodes.listIterator() ;
+        Node previous_node = null;
+        Node current_node = it.next();
+        
+        while(it.hasNext()) {
+        	previous_node = current_node;
+            current_node = it.next();
+        	List<Arc> successors = previous_node.getSuccessors() ;
+        	ListIterator<Arc> arc_it = successors.listIterator() ;
+        	Arc current_arc = null ; 
+        	Arc optimal_arc = null ;
+        	double minTime = 0 ;
+        	while(arc_it.hasNext()) {
+        		current_arc = arc_it.next();
+        		if(current_arc.getDestination() == current_node) { //bon successeur
+        			if(minTime == 0 || current_arc.getMinimumTravelTime() <= minTime) {
+    					optimal_arc = current_arc ;
+    					minTime = optimal_arc.getMinimumTravelTime();
+    		    	}
+        		}
         	}
-        }*/
+	        if(optimal_arc != null) {
+	        	arcs.add(optimal_arc);
+	        }else{
+	        	throw new IllegalArgumentException("Invalid list of nodes.");
+	        }
+        	
+        }
         return new Path(graph, arcs);
+       
     }
 
     /**
@@ -61,36 +88,48 @@ public class Path {
      * 
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
-     * @deprecated
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
+        if(nodes.size()==0) {
+        	return new Path(graph);
+        }
+        
+        if(nodes.size() == 1) {
+        	return new Path(graph, nodes.get(0));
+        }
+   
         List<Arc> arcs = new ArrayList<Arc>();
-	//TODO:
-       /* 
-       if (nodes.size() == 0) {
-				return new Path(graph);
-			}
-			else if (nodes.size() == 1) {
-				return new Path(graph, nodes.get(0));
-			}
-			
-			ListIterator<Node> it = nodes.listIterator() ;
-      Node first_node =  nodes.get(0);
-      Node current_node = NULL ;
-       
-      while(it.hasNext()) {
-      	Node previous_nodes = it.next();
-      	Iterator<Arc> arc_it = previous_nodes.iterator();
-      	while(arc_it.hasNext()){
-      		Arc current_arc = arc_it.next();
-      		if(current_arc.getDestination().equals(previous_node)){
-      			current_arc = arc... ;
-      			}
-      		}
-      	} 	
-      }*/
+        ListIterator<Node> it = nodes.listIterator() ;
+        Node previous_node = null;
+        Node current_node = it.next();
+        
+        while(it.hasNext()) {
+        	previous_node = current_node;
+            current_node = it.next();
+        	List<Arc> successors = previous_node.getSuccessors() ;
+        	ListIterator<Arc> arc_it = successors.listIterator() ;
+        	Arc current_arc = null ; 
+        	Arc optimal_arc = null ;
+        	float longueur = 0 ;
+        	while(arc_it.hasNext()) {
+        		current_arc = arc_it.next();
+        		if(current_arc.getDestination() == current_node) { //bon successeur
+        			if(longueur == 0 || current_arc.getLength() <= longueur) {
+    					optimal_arc = current_arc ;
+    					longueur = optimal_arc.getLength();
+    		    	}
+        		}
+        	}
+	        if(optimal_arc != null) {
+	        	arcs.add(optimal_arc);
+	        }else{
+	        	throw new IllegalArgumentException("Invalid list of nodes.");
+	        }
+        	
+        }
         return new Path(graph, arcs);
+       
     }
 
     /**
@@ -261,7 +300,6 @@ public class Path {
      * 
      * @return Total length of the path (in meters).
      * 
-     * @deprecated Need to be implemented.
      */
     public float getLength() {
     	float length=0;
@@ -302,7 +340,6 @@ public class Path {
      * 
      * @return Minimum travel time to travel this path (in seconds).
      * 
-     * @deprecated Need to be implemented.
      */
     public double getMinimumTravelTime() {
     	double time=0;
