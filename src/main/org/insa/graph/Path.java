@@ -33,12 +33,17 @@ public class Path {
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
      * 
-     * @deprecated Need to be implemented.
      */
 	public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
-        List<Arc> arcs = new ArrayList<Arc>();
-        
+    	if(nodes.size()==0) {
+        	return new Path(graph);
+        }
+        if(nodes.size() == 1) {
+        	return new Path(graph, nodes.get(0));
+        }
+   
+        List<Arc> arcs = new ArrayList<Arc>();        
         //If there's nodes is empty
         if(nodes.size()==0) {
         	return new Path(graph);
@@ -96,8 +101,8 @@ public class Path {
         	}
         	Arc_valid.clear();
         }
-        
         return new Path(graph, arcs);
+       
     }
     /**
      * author : DIARRA
@@ -114,15 +119,14 @@ public class Path {
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
-        
-        if(graph.size()==0) {
+        if(nodes.size()==0) {
         	return new Path(graph);
         }
         
-        if(graph.size() == 1) {
+        if(nodes.size() == 1) {
         	return new Path(graph, nodes.get(0));
         }
-        
+   
         List<Arc> arcs = new ArrayList<Arc>();
         ListIterator<Node> it = nodes.listIterator() ;
         Node previous_node = null;
@@ -133,30 +137,24 @@ public class Path {
             current_node = it.next();
         	List<Arc> successors = previous_node.getSuccessors() ;
         	ListIterator<Arc> arc_it = successors.listIterator() ;
-        	Arc previous_arc = null ;
-        	Arc current_arc = arc_it.next();
+        	Arc current_arc = null ; 
         	Arc optimal_arc = null ;
-        	Arc essai = null ;
+        	float longueur = 0 ;
         	while(arc_it.hasNext()) {
-        		previous_arc = current_arc ;
         		current_arc = arc_it.next();
-        		if(previous_arc.getDestination() == current_node) { //bon successeur
-        			essai = previous_arc ;
-        			if(optimal_arc!=null) {
-        				if(essai.getLength() < optimal_arc.getLength()) {
-        				optimal_arc = essai ;
-        			}else {
-        				optimal_arc = essai ;
-        			}
+        		if(current_arc.getDestination() == current_node) { //bon successeur
+        			if(longueur == 0 || current_arc.getLength() <= longueur) {
+    					optimal_arc = current_arc ;
+    					longueur = optimal_arc.getLength();
+    		    	}
         		}
+        	}
 	        if(optimal_arc != null) {
 	        	arcs.add(optimal_arc);
 	        }else{
 	        	throw new IllegalArgumentException("Invalid list of nodes.");
 	        }
         	
-        }
-        	}
         }
         return new Path(graph, arcs);
        

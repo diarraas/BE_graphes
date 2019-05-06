@@ -57,6 +57,11 @@ public abstract class Arc {
     public double getMinimumTravelTime() {
         return getTravelTime(getRoadInformation().getMaximumSpeed());
     }
+    
+    public String toString() {
+    	String s = "";
+    	return (s + this.getOrigin() + " to " + this.getDestination() );
+    }
 
     /**
      * @return Road information for this arc.
