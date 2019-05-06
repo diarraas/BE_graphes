@@ -58,7 +58,7 @@ public final class Point {
 
     /**
      * Compute the distance from this point to the given point
-     * 
+     * Mi
      * @param target Target point to compute distance to.
      * 
      * @return Distance between this point and the target point, in meters.
