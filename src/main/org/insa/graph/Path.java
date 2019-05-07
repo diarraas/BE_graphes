@@ -34,7 +34,7 @@ public class Path {
      *         consecutive nodes in the list are not connected in the graph.
      * 
      */
-    public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
+	public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
     	if(nodes.size()==0) {
         	return new Path(graph);
@@ -43,39 +43,67 @@ public class Path {
         	return new Path(graph, nodes.get(0));
         }
    
-        List<Arc> arcs = new ArrayList<Arc>();
-        ListIterator<Node> it = nodes.listIterator() ;
-        Node previous_node = null;
-        Node current_node = it.next();
+        List<Arc> arcs = new ArrayList<Arc>();        
+        //If there's nodes is empty
+        if(nodes.size()==0) {
+        	return new Path(graph);
+        }
         
-        while(it.hasNext()) {
-        	previous_node = current_node;
-            current_node = it.next();
-        	List<Arc> successors = previous_node.getSuccessors() ;
-        	ListIterator<Arc> arc_it = successors.listIterator() ;
-        	Arc current_arc = null ; 
-        	Arc optimal_arc = null ;
-        	double minTime = 0 ;
-        	while(arc_it.hasNext()) {
-        		current_arc = arc_it.next();
-        		if(current_arc.getDestination() == current_node) { //bon successeur
-        			if(minTime == 0 || current_arc.getMinimumTravelTime() <= minTime) {
-    					optimal_arc = current_arc ;
-    					minTime = optimal_arc.getMinimumTravelTime();
-    		    	}
+        //If there's only one node in the list
+        if(nodes.size() == 1) {
+        	return new Path(graph, nodes.get(0));
+        }
+        
+        //If there's 2 or more nodes in the list
+        ListIterator<Node> it = nodes.listIterator();
+        
+        Node current=it.next();
+        Arc chemin=current.getSuccessors().get(0);
+        List<Arc> Arc_valid = new ArrayList<Arc>();
+        
+        while (it.hasNext()) {
+        	Node aux = current;
+        	current=it.next();
+        	
+        	//Find list of Arcs valid:
+        	Node element;
+        	for(int j=0;j<aux.getSuccessors().size();j++) {
+        		element = aux.getSuccessors().get(j).getDestination();
+        		if(element==current) {
+        			Arc_valid.add(aux.getSuccessors().get(j));
         		}
         	}
-	        if(optimal_arc != null) {
-	        	arcs.add(optimal_arc);
-	        }else{
-	        	throw new IllegalArgumentException("Invalid list of nodes.");
-	        }
         	
+        	//The next node is a successor of the current node
+        	if(Arc_valid.size()!=0){
+        		//If there is only one possibility
+        		if(aux.getNumberOfSuccessors()==1) {
+        			chemin = aux.getSuccessors().get(0);
+        		}
+        		//If there is so many possibilities
+        		else {
+        			int i;
+        			double MinTime =Arc_valid.get(0).getMinimumTravelTime();
+        			for(i=0; i<Arc_valid.size();i++) {
+            			Arc iteration = Arc_valid.get(i);
+            			if(iteration.getMinimumTravelTime()<MinTime) {
+            				MinTime=iteration.getMinimumTravelTime();
+            				chemin=Arc_valid.get(i);
+            			}
+        			}
+        		}
+    			arcs.add(chemin);
+        		
+        	}
+        	else {
+            //The next node is not a successor of the next node 
+        		throw new IllegalArgumentException();
+        	}
+        	Arc_valid.clear();
         }
         return new Path(graph, arcs);
        
     }
-
     /**
      * author : DIARRA
      * Create a new path that goes through the given list of nodes (in order),
@@ -353,3 +381,4 @@ public class Path {
     }
 
 }
+
