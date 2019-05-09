@@ -18,20 +18,27 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     @Override
     protected ShortestPathSolution doRun() {
     	/* Initialization */
+    	ShortestPathSolution solution = null ;
     	ShortestPathData data = getInputData();
         Graph graph = data.getGraph();
         final int nbNodes = graph.size();
+        
+        // Notify observers about the first event (origin processed).
+        notifyOriginProcessed(data.getOrigin());
+        
+        Arc[] predecessorArcs = new Arc[nbNodes];
         int i ;
         Label labels[] = new Label[nbNodes] ;
         BinaryHeap<Node> stack = new BinaryHeap<>() ;
-        
+      
         for(i = 0; i < nbNodes; i++) {
         	labels[i] = new Label(graph.get(i));
         }
+        
         labels[0].setCost(0);
         stack.insert(labels[0].getCurrent_node());
         Node current_node ;
-        List<Arc> successors ;
+        List<Arc> successors ;       
         int id_destination ;
         boolean changed = false ;
         double distance = 0 ;
@@ -51,19 +58,37 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         			if(changed) {
         				stack.insert(labels[id_destination].getCurrent_node());
         				labels[id_destination].setFather(current_node);
+        				predecessorArcs[id_destination] = current_arc;
         			}
         		}
         	}
         	not_marked_exists = (!stack.isEmpty() && current_node != data.getDestination());
         }
-        ArrayList<Arc> arcs = new ArrayList<>();
-        i = 0 ;
-        Node ori, dest ;
-        while(i != labels.length) {
-        	arcs.add(Node.linkNodes(ori,dest));
-        }
-        ShortestPathSolution solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs));;
         
+        // Destination has no predecessor, the solution is infeasible...
+        if (predecessorArcs[data.getDestination().getId()] == null) {
+            solution = new ShortestPathSolution(data, Status.INFEASIBLE);
+        } else {
+
+            // The destination has been found, notify the observers.
+            notifyDestinationReached(data.getDestination());
+
+            // Create the path from the array of predecessors...
+            ArrayList<Arc> arcs = new ArrayList<Arc>();
+            Arc arc = predecessorArcs[data.getDestination().getId()];
+            while (arc != null) {
+                arcs.add(arc);
+                arc = predecessorArcs[arc.getOrigin().getId()];
+                //arc = predecessorArcs[labels[arc.getDestination().getId()].getFather().getId()];
+            }
+
+            // Reverse the path...
+            Collections.reverse(arcs);
+
+            // Create the final solution.
+            solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs));
+        }
+
         return solution;
     }
 
