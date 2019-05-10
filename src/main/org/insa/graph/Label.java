@@ -20,6 +20,10 @@ public class Label {
 		return this.cost ;
 	}
 	
+	public int getId() {
+		return this.id ;
+	}
+	
 	public Node getFather() {
 		return this.father ;
 	}
