@@ -14,26 +14,33 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     public DijkstraAlgorithm(ShortestPathData data) {
         super(data);
     }
-
+    
+    protected final ShortestPathData data = getInputData();
+    
+    protected ShortestPathSolution solution ;
+    protected final Graph graph = data.getGraph();
+    protected final int nbNodes = graph.size();
+    protected BinaryHeap<Label> stack = new BinaryHeap<>() ;
+    
+    protected Label[] initLabels() {
+    	Label labels[] = new Label[nbNodes] ;
+    	int i ;
+    	for(i = 0; i < nbNodes; i++) {
+        	labels[i] = new Label(graph.get(i));
+        }
+    	return labels;
+    }
+    
+    
     @Override
     protected ShortestPathSolution doRun() {
     	/* Initialization */
-    	ShortestPathSolution solution = null ;
-    	ShortestPathData data = getInputData();
-        Graph graph = data.getGraph();
-        final int nbNodes = graph.size();
         
         // Notify observers about the departure
         notifyOriginProcessed(data.getOrigin());
         
         Arc[] predecessorArcs = new Arc[nbNodes];
-        int i ;
-        Label labels[] = new Label[nbNodes] ;
-        BinaryHeap<Label> stack = new BinaryHeap<>() ;
-      
-        for(i = 0; i < nbNodes; i++) {
-        	labels[i] = new Label(graph.get(i));
-        }
+        Label labels[] = initLabels(); 
         
         labels[data.getOrigin().getId()].setCost(0);
         stack.insert(labels[data.getOrigin().getId()]);
@@ -54,8 +61,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         		distance = data.getCost(current_arc);
         		id_destination = (current_arc.getDestination()).getId() ; 
         		if(!labels[id_destination].isMarked()) {
-        			if(labels[id_destination].getCost() > labels[current_node.getId()].getCost() + distance){
-        				labels[id_destination].setCost(labels[current_node.getId()].getCost() + distance);
+        			if(labels[id_destination].getTotalCost() > labels[current_node.getId()].getTotalCost() + distance){
+        				labels[id_destination].setCost(labels[current_node.getId()].getTotalCost() + distance);
         				changed = true ;
         			}
         			if(changed) {
