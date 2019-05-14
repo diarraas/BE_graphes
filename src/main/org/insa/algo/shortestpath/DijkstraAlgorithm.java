@@ -23,20 +23,20 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         Graph graph = data.getGraph();
         final int nbNodes = graph.size();
         
-        // Notify observers about the first event (origin processed).
+        // Notify observers about the departure
         notifyOriginProcessed(data.getOrigin());
         
         Arc[] predecessorArcs = new Arc[nbNodes];
         int i ;
         Label labels[] = new Label[nbNodes] ;
-        BinaryHeap<Node> stack = new BinaryHeap<>() ;
+        BinaryHeap<Label> stack = new BinaryHeap<>() ;
       
         for(i = 0; i < nbNodes; i++) {
         	labels[i] = new Label(graph.get(i));
         }
         
         labels[data.getOrigin().getId()].setCost(0);
-        stack.insert(labels[data.getOrigin().getId()].getCurrent_node());
+        stack.insert(labels[data.getOrigin().getId()]);
         Node current_node ;
         List<Arc> successors ;       
         int id_destination ;
@@ -44,23 +44,26 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         double distance = 0 ;
         boolean not_marked_exists = true ;
         while(not_marked_exists) {
-        	current_node = stack.deleteMin() ;
+        	current_node = stack.deleteMin().getCurrent_node() ;
         	labels[current_node.getId()].mark();
+        	//Notify observers that the current node has been marked
+        	notifyNodeMarked(current_node);
         	successors = current_node.getSuccessors() ;
         	for(Arc current_arc : successors) {
         		changed = false ;
         		distance = data.getCost(current_arc);
         		id_destination = (current_arc.getDestination()).getId() ; 
         		if(!labels[id_destination].isMarked()) {
-        			if(labels[id_destination].getCost() >= labels[current_node.getId()].getCost() + distance){
+        			if(labels[id_destination].getCost() > labels[current_node.getId()].getCost() + distance){
         				labels[id_destination].setCost(labels[current_node.getId()].getCost() + distance);
         				changed = true ;
         			}
         			if(changed) {
-        				
-        				stack.insert(labels[id_destination].getCurrent_node());
+        				//Notify observers that this node has been reached
+        				notifyNodeReached(current_arc.getDestination());
+        				stack.insert(labels[id_destination]);
         				labels[id_destination].setFather(current_node);
-        				System.out.println("Node id = "+ labels[id_destination].getId() + "	\t   Cost = " + labels[id_destination].getCost() + "   \t  Father = " + current_node.getId());
+        				//System.out.println("Node id = "+ labels[id_destination].getId() + "	\t   Cost = " + labels[id_destination].getCost() + "   \t  Father = " + current_node.getId());
         				predecessorArcs[id_destination] = current_arc;
         			}
         		}
@@ -73,7 +76,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
             solution = new ShortestPathSolution(data, Status.INFEASIBLE);
         } else {
             
-        	// The destination has been found, notify the observers.
+        	// Notify the observers that destination has been reached.
             notifyDestinationReached(data.getDestination());
 
             // Create the path from the array of predecessors...

@@ -1,6 +1,7 @@
 package org.insa.graph;
 
-public class Label {
+public final class Label implements Comparable<Label>{
+	
 	/*  Attributes  */
 	private Node current_node ;
 	private boolean marked ;
@@ -46,6 +47,16 @@ public class Label {
 	
 	public void setFather(Node fath) {
 		this.father = fath ;
+	}
+	
+	public int compareTo(Label l) {
+		int result = 0 ;
+		if(this.cost < l.cost) {
+			result = -1 ;
+		}else if(this.cost > l.cost) {
+			result = 1 ;
+		}
+		return result ;
 	}
 
 }
