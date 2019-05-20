@@ -1,17 +1,15 @@
 package org.insa.graph;
 
 public class LabelStar extends Label implements Comparable<Label> {
-	private Node destination ;
+	private double distance_from_dest ;
 	
-	public LabelStar(Node current) {
+	public LabelStar(Node current,Node destination) {
 		super(current);
+		this.distance_from_dest = Point.distance(current.getPoint(), destination.getPoint());
 	}
 	
-	public void setDestination(Node noeud) {
-		this.destination = noeud ;
-	}
 	
 	public double getTotalCost() {
-		return (this.getCost() + Point.distance(this.getCurrent_node().getPoint(), this.destination.getPoint())) ;
+		return (this.getCost() + this.distance_from_dest) ;
 	}
 }

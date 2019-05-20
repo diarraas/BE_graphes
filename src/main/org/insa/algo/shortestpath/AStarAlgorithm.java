@@ -13,8 +13,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
     	LabelStar labels[] = new LabelStar[nbNodes] ;
     	int i ;
     	for(i = 0; i < nbNodes; i++) {
-        	labels[i] = new LabelStar(graph.get(i));
-        	labels[i].setDestination(data.getDestination());
+        	labels[i] = new LabelStar(graph.get(i), data.getDestination());
         }
     	return labels;
     }
