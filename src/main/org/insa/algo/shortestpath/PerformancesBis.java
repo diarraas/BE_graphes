@@ -12,7 +12,7 @@ import org.insa.algo.* ;
 import org.insa.graph.io.BinaryGraphReader;
 import org.insa.graph.io.GraphReader;
 
-public class Performances {
+public class PerformancesBis {
 
 	private static Graph small_graph, bigger_graph, average_graph, cars_graph, no_car_graph;
     private static ShortestPathData datas[]; 
@@ -20,7 +20,6 @@ public class Performances {
     private static String small_map, bigger_map, average_map, cars_only, no_car ;
     private static GraphReader small_reader, bigger_reader, average_reader,car_reader, no_car_reader;
     private static DijkstraAlgorithm[] dijkstra, astar ;
-    
     
     public static void initAll() throws IOException {
     	
