@@ -83,17 +83,21 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 
             // Create the path from the array of predecessors...
             ArrayList<Arc> arcs = new ArrayList<Arc>();
-            Arc arc = predecessorArcs[data.getDestination().getId()];
-            while (arc != null) {
-               arcs.add(arc);
-               arc = predecessorArcs[arc.getOrigin().getId()];
+            if(data.getOrigin().compareTo(data.getDestination())==0) {
+            	solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph));
+            }else {
+	            Arc arc = predecessorArcs[data.getDestination().getId()];
+	            while (arc != null) {
+	               arcs.add(arc);
+	               arc = predecessorArcs[arc.getOrigin().getId()];
+	            }
+	
+	            // Reverse the path...
+	            Collections.reverse(arcs);
+	
+	            // Create the final solution.
+	            solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs));
             }
-
-            // Reverse the path...
-            Collections.reverse(arcs);
-
-            // Create the final solution.
-            solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs));
         }
         return solution;
     }
