@@ -1,6 +1,6 @@
 package org.insa.graph;
 
-public final class Label implements Comparable<Label>{
+public class Label implements Comparable<Label>{
 	
 	/*  Attributes  */
 	private Node current_node ;
@@ -48,12 +48,15 @@ public final class Label implements Comparable<Label>{
 	public void setFather(Node fath) {
 		this.father = fath ;
 	}
+	public double getTotalCost() {
+		return this.cost ;
+	}
 	
 	public int compareTo(Label l) {
 		int result = 0 ;
-		if(this.cost < l.cost) {
+		if(this.getTotalCost() < l.getTotalCost()) {
 			result = -1 ;
-		}else if(this.cost > l.cost) {
+		}else if(this.getTotalCost() > l.getTotalCost()) {
 			result = 1 ;
 		}
 		return result ;
