@@ -7,9 +7,9 @@ public class LabelStar extends Label implements Comparable<Label> {
 		super(current);
 		this.distance_from_dest = Point.distance(current.getPoint(), destination.getPoint());
 	}
-	
-	
+		
 	public double getTotalCost() {
 		return (this.getCost() + this.distance_from_dest) ;
 	}
+	
 }

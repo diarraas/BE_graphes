@@ -1,61 +1,186 @@
 package org.insa.algo.shortestpath;
 
 import org.insa.*;
+import org.insa.algo.AbstractSolution.Status;
+import org.insa.algo.ArcInspector;
+import org.insa.algo.ArcInspectorFactory;
 import org.insa.graph.Arc;
 import org.insa.graph.Graph;
 import org.insa.graph.Node;
 import org.insa.graph.Path;
 import org.insa.graph.RoadInformation;
 import org.insa.graph.RoadInformation.RoadType;
+import org.insa.graph.io.BinaryGraphReader;
+import org.insa.graph.io.GraphReader;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class DijkstraAlgorithmTest {
 
-	/*	Atributes	*/
-   
-	// Small graph use for tests
     private static Graph graph;
-
-    // List of nodes
-    private static Node[] nodes;
-
-    // List of arcs in the graph, a2b is the arc from node A (0) to B (1).
-    @SuppressWarnings("unused")
-    private static Arc a2b, a2c, a2e, b2c, c2d_1, c2d_2, c2d_3, c2a, d2a, d2e, e2d;
-
-    // Some paths...
-    private static Path emptyPath, singleNodePath, shortPath, longPath, loopPath, longLoopPath,
-            invalidPath;
+    private Node origin;
+    private Node destination;
+    private ArcInspector arcInspector;
+    private ShortestPathData data; 
+    private static String map;
+    private static GraphReader reader;
     
-    //The shortest path algorithms
-    private static DijkstraAlgorithm dijkstra ;
-    private static BellmanFordAlgorithm bellman ;
-    
-    public static void initComponents(ShortestPathData data) throws IOException {
-    	//init algorithms
-    	bellman = new BellmanFordAlgorithm(data);
-    	dijkstra = new DijkstraAlgorithm(data);
-    }
-	
-    public static void testScenario(Graph map, int nature, Node origin, Node destination) {
+    @BeforeClass
+    public static void initAll() throws IOException {
     	
+        map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bretagne.mapgr";
+
+    	reader = new BinaryGraphReader(
+				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
+    	
+    	graph =reader.read();
+
     }
-	
-    @Test
-	public static void isValid() {
-		assertEquals(true,dijkstra.doRun().getPath().isValid());
+
+	@Test
+	public void testdoRun() {
+		ShortestPathSolution solution;
+		Path path ;
+		
+		//First Element of arc inspector
+		arcInspector= ArcInspectorFactory.getAllFilters().get(0);
+
+		//Path valid
+		origin= new Node(144589, null);
+		destination= new Node(553673, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		path = solution.getPath();
+        assertEquals(Status.OPTIMAL, solution.getStatus());
+        assertEquals(origin, path.getOrigin());
+        assertEquals(destination, path.getDestination());
+        assertTrue(path.isValid());
+//       assertEquals(path.getLength(), solution.getAllCosts());
+        
+        
+		//Null path
+        origin= new Node(144589, null);
+		destination= new Node(144589, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		path = solution.getPath();
+		//assertEquals(0 , path.getArcs().size());
+        //assertEquals(null, path.getOrigin());
+        assertTrue(path.isEmpty());
+
+		//Path not valid
+        origin= new Node(513508, null);
+		destination= new Node(126344, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		path = solution.getPath();
+        assertEquals(Status.INFEASIBLE, solution.getStatus());
+        
+        //Third Element of arc inspector
+		arcInspector= ArcInspectorFactory.getAllFilters().get(2);
+
+		//Path valid
+		origin= new Node(144589, null);
+		destination= new Node(553673, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		path = solution.getPath();
+        assertEquals(Status.OPTIMAL, solution.getStatus());
+        assertEquals(origin, path.getOrigin());
+        assertEquals(destination, path.getDestination());
+        assertTrue(path.isValid());
+//        assertEquals(path.getMinimumTravelTime(), solution.getAllCosts());
+        
+        
+		//Null path
+        origin= new Node(144589, null);
+		destination= new Node(144589, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		path = solution.getPath();
+        assertTrue(path.isEmpty());
+		assertEquals(0 , path.getArcs().size());
+
+		//Path not valid
+        origin= new Node(513508, null);
+		destination= new Node(126344, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		path = solution.getPath();
+        assertEquals(Status.INFEASIBLE, solution.getStatus());
+		
 	}
-    
-    @Test
-	public static void isShortest() {
-    	
-    }
+	
+	@Test
+	public void testdoRunOracle() {
+		ShortestPathSolution solution;
+		ShortestPathSolution expected;
+		
+		//First Element of arc inspector
+		arcInspector= ArcInspectorFactory.getAllFilters().get(0);
+		
+		//Path valid
+		origin= new Node(144589, null);
+		destination= new Node(553673, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		expected = new BellmanFordAlgorithm(data).doRun();
+        assertSame(expected.getPath() ,  solution.getPath());
+        
+        
+		//Null path
+        origin= new Node(144589, null);
+		destination= new Node(144589, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		expected = new BellmanFordAlgorithm(data).doRun();
+        assertEquals(expected.getPath(), solution.getPath());
 
+
+		//Path not valid
+        origin= new Node(513508, null);
+		destination= new Node(126344, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		expected = new BellmanFordAlgorithm(data).doRun();
+        assertEquals(expected.getPath(), solution.getPath());
+        
+        //Third Element of arc inspector
+		arcInspector= ArcInspectorFactory.getAllFilters().get(2);
+
+		//Path valid
+		origin= new Node(144589, null);
+		destination= new Node(553673, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		expected = new BellmanFordAlgorithm(data).doRun();
+        assertSame(expected.getPath() ,  solution.getPath());
+        
+        
+		//Null path
+        origin= new Node(144589, null);
+		destination= new Node(144589, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		expected = new BellmanFordAlgorithm(data).doRun();
+        assertEquals(expected.getPath(), solution.getPath());
+
+		//Path not valid
+        origin= new Node(513508, null);
+		destination= new Node(126344, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		expected = new BellmanFordAlgorithm(data).doRun();
+        assertEquals(expected.getPath(), solution.getPath());
+	}
 }
