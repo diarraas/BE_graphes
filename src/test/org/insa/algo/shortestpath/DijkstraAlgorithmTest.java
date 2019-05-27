@@ -57,12 +57,12 @@ public class DijkstraAlgorithmTest {
     	int nodes_id[]= { 32951, 13293, 21095, 4999, 16060, 14943, 27459, 27384, 26582, 4307};
     	for (i=0 ; i< nodes_id.length ;i++) {
         	for (j=0 ; j< nodes_id.length;j++) {
-            origin= new Node(i, null);
-    		destination= new Node(j, null);
+            origin= graph.get(i);
+    		destination= graph.get(j);
     		arcInspector= ArcInspectorFactory.getAllFilters().get(0);
     		data_test.add(new ShortestPathData(graph, origin , destination, arcInspector));
-    		//arcInspector= ArcInspectorFactory.getAllFilters().get(2);
-    		//data_test.add(new ShortestPathData(graph, origin , destination, arcInspector));
+    		arcInspector= ArcInspectorFactory.getAllFilters().get(2);
+    		data_test.add(new ShortestPathData(graph, origin , destination, arcInspector));
         	}
     	}
     	return data_test;
@@ -70,7 +70,7 @@ public class DijkstraAlgorithmTest {
     
     
 
-    @test
+    @Test
 	public void testdoRun() {
 		ShortestPathSolution solution;
 		Path path ;
@@ -79,8 +79,8 @@ public class DijkstraAlgorithmTest {
 		arcInspector= ArcInspectorFactory.getAllFilters().get(0);
 
 		//Path valid
-		origin= new Node(144589, null);
-		destination= new Node(553673, null);
+		origin= graph.get(20883);
+		destination= graph.get(9116);
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
 		path = solution.getPath();
@@ -94,8 +94,8 @@ public class DijkstraAlgorithmTest {
         
         
 		//Null path
-        origin= new Node(144589, null);
-		destination= new Node(144589, null);
+        origin= graph.get(9116);
+		destination= graph.get(9116);
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
 		path = solution.getPath();
@@ -105,27 +105,20 @@ public class DijkstraAlgorithmTest {
 
 
 		//Path not valid
-        origin= new Node(513508, null);
-		destination= new Node(126344, null);
+        origin= graph.get(16029);
+		destination= graph.get(18865);
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
 		path = solution.getPath();
         assertEquals(Status.INFEASIBLE, solution.getStatus());
         
-		//Null path
-        origin= new Node(144589, null);
-		destination= new Node(144589, null);
-		data = new ShortestPathData(graph, origin , destination, arcInspector);
-		solution = new DijkstraAlgorithm(data).doRun();
-		path = solution.getPath();
-        assertTrue(path.isEmpty());
-        
+
         //Third Element of arc inspector
 		arcInspector= ArcInspectorFactory.getAllFilters().get(2);
 
 		//Path valid
-		origin= new Node(144589, null);
-		destination= new Node(553673, null);
+		origin= graph.get(9116);
+		destination= graph.get(20883);
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
 		path = solution.getPath();
@@ -137,16 +130,16 @@ public class DijkstraAlgorithmTest {
       
         
 		//Path not valid
-        origin= new Node(513508, null);
-		destination= new Node(126344, null);
+        origin= graph.get(16029);
+		destination= graph.get(18865);
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
 		path = solution.getPath();
         assertEquals(Status.INFEASIBLE, solution.getStatus());
         
 		//Null path
-        origin= new Node(144589, null);
-		destination= new Node(144589, null);
+        origin= graph.get(9116);
+		destination= graph.get(9116);
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
 		path = solution.getPath();
@@ -162,12 +155,9 @@ public class DijkstraAlgorithmTest {
 		Path expected_path;
 		int i;
 		
-		System.out.println("start test");
 		ArrayList<ShortestPathData> oracle_test= oracle();
-		System.out.println("oracle cree");
 		
 		for (i=0 ; i< oracle_test.size() ;i++) {
-			System.out.println("i= "+ i);
 			data = oracle_test.get(i);
 			
 			solution = new DijkstraAlgorithm(data).doRun();
@@ -181,9 +171,14 @@ public class DijkstraAlgorithmTest {
 			if(solution.isFeasible() && expected.isFeasible())
 			{
 				assertEquals(expected_path.getLength(), solution_path.getLength() , 0);
+				assertEquals(expected_path.getMinimumTravelTime(), solution_path.getMinimumTravelTime() , 0);
+
 	        }
 			
 		}
 	}
+	
+	
+	
 	
 }
