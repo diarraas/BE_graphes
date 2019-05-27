@@ -46,7 +46,7 @@ public class DijkstraAlgorithmTest {
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
-    	
+    	 
     	graph =reader.read();
     	
 
@@ -89,6 +89,20 @@ public class DijkstraAlgorithmTest {
         assertEquals(destination, path.getDestination());
         assertTrue(path.isValid());
 //       assertEquals(path.getLength(), solution.getCost());
+
+//       assertEquals(path.getLength(), solution.getAllCosts());
+        
+        
+		//Null path
+        origin= new Node(144589, null);
+		destination= new Node(144589, null);
+		data = new ShortestPathData(graph, origin , destination, arcInspector);
+		solution = new DijkstraAlgorithm(data).doRun();
+		path = solution.getPath();
+		//assertEquals(0 , path.getArcs().size());
+        //assertEquals(null, path.getOrigin());
+        assertTrue(path.isEmpty());
+
 
 		//Path not valid
         origin= new Node(513508, null);

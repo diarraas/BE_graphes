@@ -14,7 +14,7 @@ public class ShortestPathTextObserver implements ShortestPathObserver {
 
     @Override
     public void notifyOriginProcessed(Node node) {
-        stream.println("Origin node " + node.getId() + " processed.");
+    	 stream.println("Origin Node " + node.getId() + " processed.");
     }
 
     @Override
@@ -29,8 +29,7 @@ public class ShortestPathTextObserver implements ShortestPathObserver {
 
     @Override
     public void notifyDestinationReached(Node node) {
-        stream.println("Destination node " + node.getId() + " reached.");
-
+    	stream.println("Destination Node " + node.getId() + " processed.");
     }
 
 }

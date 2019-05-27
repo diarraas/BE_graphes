@@ -17,7 +17,7 @@ public class ShortestPathGraphicObserver implements ShortestPathObserver {
         psOverlay1 = drawing.createPointSetOverlay(1, Color.CYAN);
         psOverlay2 = drawing.createPointSetOverlay(1, Color.BLUE);
     }
-
+ 
     @Override
     public void notifyOriginProcessed(Node node) {
         // drawing.drawMarker(node.getPoint(), Color.RED);
