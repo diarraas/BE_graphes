@@ -69,7 +69,7 @@ public abstract class AbstractSolution {
      * 
      * @param solvingTime Solving time for the solution.
      */
-    protected void setSolvingTime(Duration solvingTime) {
+    public void setSolvingTime(Duration solvingTime) {
         this.solvingTime = solvingTime;
     }
 
