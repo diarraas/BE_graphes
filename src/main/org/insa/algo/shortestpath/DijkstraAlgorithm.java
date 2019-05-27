@@ -97,8 +97,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 	
 	            // Create the final solution.
 	            solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs));
-	            long end = System.currentTimeMillis();
-	            solution.setSolvingTime(Duration.ofSeconds((end-start)/1000));
+	           // long end = System.currentTimeMillis();
+	            //solution.setSolvingTime(Duration.ofSeconds((end-start)/1000));
             }
         }
         return solution;

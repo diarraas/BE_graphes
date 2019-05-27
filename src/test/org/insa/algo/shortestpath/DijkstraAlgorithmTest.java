@@ -42,7 +42,7 @@ public class DijkstraAlgorithmTest {
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
-    	
+    	 
     	graph =reader.read();
 
     }
