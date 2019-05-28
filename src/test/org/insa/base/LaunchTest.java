@@ -1,7 +1,6 @@
 package org.insa.base;
 import java.io.IOException;
-
-import org.insa.algo.shortestpath.Performances;
+import org.insa.algo.shortestpath.*;
 
 public class LaunchTest {
 
@@ -9,24 +8,24 @@ public class LaunchTest {
 		
 		//Initializing Tests components
 		System.out.println("Initializing Tests components");
-		Performances.initAll();
+		PerformancesTest.initAll();
 		
 		//Lauching tests
 		System.out.println("Launching Tests");
 
-		Performances.launchTestAstarDistance();
+		PerformancesTest.launchTestAstarDistance();
 		
 		System.out.println("A* Distance ----- OK");
 		
-		Performances.launchTestAstarTime();
+		PerformancesTest.launchTestAstarTime();
 		
 		System.out.println("A* Time ----- OK");
 		
-		Performances.launchTestDijkstraDistance();
+		PerformancesTest.launchTestDijkstraDistance();
 		
 		System.out.println("Dijkstra Distance ----- OK");
 		
-		Performances.launchTestDijkstraTime();
+		PerformancesTest.launchTestDijkstraTime();
 		
 		System.out.println("Dijkstra TIme ----- OK");
 		

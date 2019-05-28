@@ -1,6 +1,5 @@
 package org.insa.algo.shortestpath;
 import java.util.*;
-import java.time.Duration; 
 import org.insa.algo.AbstractSolution.Status;
 import org.insa.algo.utils.*;
 import org.insa.graph.Arc;
@@ -42,7 +41,6 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         
         Arc[] predecessorArcs = new Arc[nbNodes];
         Label labels[] = initLabels(); 
-        long start = System.currentTimeMillis();
         labels[data.getOrigin().getId()].setCost(0);
         stack.insert(labels[data.getOrigin().getId()]);
         Node current_node ;
@@ -97,8 +95,6 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 	
 	            // Create the final solution.
 	            solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs));
-	           // long end = System.currentTimeMillis();
-	            //solution.setSolvingTime(Duration.ofSeconds((end-start)/1000));
             }
         }
         return solution;

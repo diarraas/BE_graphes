@@ -11,8 +11,9 @@ import org.insa.graph.Graph;
 import org.insa.algo.* ;
 import org.insa.graph.io.BinaryGraphReader;
 import org.insa.graph.io.GraphReader;
+import org.junit.Test;
 
-public class Performances { 
+public class PerformancesTest { 
 
 	private static Graph small_graph, bigger_graph, average_graph, cars_graph, no_car_graph;
     private static ShortestPathData datas[]; 
@@ -43,7 +44,7 @@ public class Performances {
         bigger_map = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/california.mapgr";
         cars_only = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/toulouse.mapgr";
         no_car = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/bordeaux.mapgr"; 
-         
+          
         /*	Initializing Readers	*/
         
         small_reader = new BinaryGraphReader(
@@ -133,7 +134,8 @@ public class Performances {
     	}
   	
     }
-        
+    
+     @Test   
 	public static void launchTestDijkstraDistance() throws IOException{
 		ShortestPathSolution[] solutions = new ShortestPathSolution[600];
 		int i;
@@ -143,7 +145,7 @@ public class Performances {
 		PrintWriter cars = new PrintWriter(new FileWriter("toulouse_distance_dijkstra_100_data.txt"));
 		PrintWriter no_car = new PrintWriter(new FileWriter("bordeaux_distance_dijkstra_100_data.txt"));
 		small.println("Chile"); average.println("Belgium"); big.println("California"); cars.println("Toulouse");no_car.println("Bordeaux");
-		small.println("0 \n 100 \n Dijkstra"); average.println("0 \n 100 \n Dijkstra"); big.println("0 \n 100 \n Dijkstra"); cars.println("0 \n 100 \n Dijkstra");no_car.println("0 \n 100 \n Dijkstra");
+		small.println("0\n100\nDijkstra"); average.println("0\n100\nDijkstra"); big.println("0 \n100\n Dijkstra"); cars.println("0\n100\nDijkstra");no_car.println("0\n100\nDijkstra");
 		for(i = 0; i < 50; i++) {
 			solutions[i] = dijkstra[i].doRun();
 			if(solutions[i] != null && solutions[i].isFeasible())			small.printf("%d \t to %d \t %f km \t in %d CPU time\n",datas[i].getOrigin().getId(),datas[i].getDestination().getId(),solutions[i].getPath().getLength(),solutions[i].getSolvingTime());
@@ -170,7 +172,8 @@ public class Performances {
 		}
 		small.close(); average.close();big.close();no_car.close();cars.close();
 	}
-	
+     
+     @Test   
 	public static void launchTestAstarDistance() throws IOException{
 		ShortestPathSolution[] solutions = new ShortestPathSolution[600]; 
 		int i ;
@@ -180,7 +183,7 @@ public class Performances {
 		PrintWriter cars = new PrintWriter(new FileWriter("toulouse_distance_astar_100_data.txt"));
 		PrintWriter no_car = new PrintWriter(new FileWriter("bordeaux_distance_astar_100_data.txt"));
 		small.println("chile"); average.println("Belgium"); big.println("California"); cars.println("Toulouse");no_car.println("Bordeaux");
-		small.println("0 \n 100 \n A*"); average.println("0 \n 100 \n A*"); big.println("0 \n 100 \n A*"); cars.println("0 \n 100 \n A*");no_car.println("0 \n 100 \n A*");
+		small.println("0\n100\nA*"); average.println("0\n100\nA*"); big.println("0\n100\nA*"); cars.println("0\n100\nA*");no_car.println("0\n100\nA*");
 		for(i = 0; i < 100; i++) {
 			solutions[i] = astar[i].doRun();
 			if(solutions[i] != null && solutions[i].isFeasible())			small.printf("%d \t to %d \t ",datas[i].getOrigin().getId(),datas[i].getDestination().getId());
@@ -211,7 +214,7 @@ public class Performances {
 		small.close(); average.close();big.close();no_car.close();cars.close();
 	}
 
-	
+     @Test   
 	public static void launchTestDijkstraTime() throws IOException{
 		ShortestPathSolution[] solutions = new ShortestPathSolution[600];
 		int i ;
@@ -221,13 +224,13 @@ public class Performances {
 		PrintWriter cars = new PrintWriter(new FileWriter("toulouse_temps_dijkstra_100_data.txt"));
 		PrintWriter no_car = new PrintWriter(new FileWriter("bordeaux_temps_dijkstra_100_data.txt"));
 		small.println("Chile"); average.println("Belgium"); big.println("California"); cars.println("Toulouse");no_car.println("Bordeaux");
-		small.println("1 \n 100 \n Dijkstra"); average.println("1 \n 100 \n Dijkstra"); big.println("0 \n 100 \n Dijkstra"); cars.println("0 \n 100 \n Dijkstra");no_car.println("0 \n 100 \n Dijkstra");
+		small.println("1\n100\nDijkstra"); average.println("1\n100\nDijkstra"); big.println("0\n100\nDijkstra"); cars.println("0\n100\nDijkstra");no_car.println("0\n100\nDijkstra");
 		for(i = 0; i < 100; i++) {
 			solutions[i] = dijkstra[i].doRun();
 			if(solutions[i] != null && solutions[i].isFeasible())			small.printf("%d \t to %d \t %f sec in %d CPU time\n",datas[i].getOrigin().getId(),datas[i].getDestination().getId(),solutions[i].getPath().getMinimumTravelTime(),solutions[i].getSolvingTime());
 		}
 		
-		for(i = 100; i < 200; i++) {
+		for(i = 100; i < 200; i++) { 
 			solutions[i] = dijkstra[i].doRun();
 			if(solutions[i] != null && solutions[i].isFeasible())			average.printf("%d \t to %d \t %f sec in %d CPU time\n",datas[i].getOrigin().getId(),datas[i].getDestination().getId(),solutions[i].getPath().getMinimumTravelTime(),solutions[i].getSolvingTime());
 		}
@@ -248,7 +251,8 @@ public class Performances {
 		}
 		small.close(); average.close();big.close();no_car.close();cars.close();
 	}
-	
+     
+     @Test   
 	public static void launchTestAstarTime() throws IOException{
 		ShortestPathSolution[] solutions = new ShortestPathSolution[600];
 		int i ;
@@ -258,10 +262,10 @@ public class Performances {
 		PrintWriter cars = new PrintWriter(new FileWriter("toulouse_temps_astar_100_data.txt"));
 		PrintWriter no_car = new PrintWriter(new FileWriter("bordeaux_temps_astar_100_data.txt"));
 		small.println("Chile"); average.println("Belgium"); big.println("California"); cars.println("Toulouse");no_car.println("Bordeaux");
-		small.println("1 \n 100 \n A*"); average.println("1 \n 100 \n A*"); big.println("0 \n 100 \n A*"); cars.println("0 \n 100 \n A*");no_car.println("0 \n 100 \n A*");
+		small.println("1\n100\nA*"); average.println("1\n100\nA*"); big.println("0\n100\nA*"); cars.println("0\n100\nA*");no_car.println("0\n100\nA*");
 		for(i =0 ; i < 100; i++) {
 			solutions[i] = astar[i].doRun();
-			if(solutions[i] != null && solutions[i].isFeasible())			small.printf("%d \t to %d \t %f sec in %d CPU time\n",datas[i].getOrigin().getId(),datas[i].getDestination().getId(),solutions[i].getPath().getMinimumTravelTime() );
+			if(solutions[i] != null && solutions[i].isFeasible())			small.printf("%d \t to %d \t %f sec in %d CPU time\n",datas[i].getOrigin().getId(),datas[i].getDestination().getId(),solutions[i].getPath().getMinimumTravelTime(),solutions[i].getSolvingTime() );
 		}
 		
 		for(i = 100; i < 200; i++) {
