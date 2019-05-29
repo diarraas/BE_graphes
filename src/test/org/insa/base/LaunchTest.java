@@ -8,24 +8,24 @@ public class LaunchTest {
 		
 		//Initializing Tests components
 		System.out.println("Initializing Tests components");
-		PerformancesTest.initAll();
-		
+		PerformancesBis.initAll();
+		 
 		//Lauching tests
 		System.out.println("Launching Tests");
 
-		PerformancesTest.launchTestAstarDistance();
+		PerformancesBis.launchTestAstarDistance();
 		
 		System.out.println("A* Distance ----- OK");
 		
-		PerformancesTest.launchTestAstarTime();
+		PerformancesBis.launchTestAstarTime();
 		
 		System.out.println("A* Time ----- OK");
-		
-		PerformancesTest.launchTestDijkstraDistance();
+		 
+		PerformancesBis.launchTestDijkstraDistance();
 		
 		System.out.println("Dijkstra Distance ----- OK");
 		
-		PerformancesTest.launchTestDijkstraTime();
+		PerformancesBis.launchTestDijkstraTime();
 		
 		System.out.println("Dijkstra TIme ----- OK");
 		

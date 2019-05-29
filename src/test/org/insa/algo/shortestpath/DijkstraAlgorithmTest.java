@@ -1,15 +1,11 @@
 package org.insa.algo.shortestpath;
 
-import org.insa.*;
 import org.insa.algo.AbstractSolution.Status;
 import org.insa.algo.ArcInspector;
 import org.insa.algo.ArcInspectorFactory;
-import org.insa.graph.Arc;
 import org.insa.graph.Graph;
 import org.insa.graph.Node;
 import org.insa.graph.Path;
-import org.insa.graph.RoadInformation;
-import org.insa.graph.RoadInformation.RoadType;
 import org.insa.graph.io.BinaryGraphReader;
 import org.insa.graph.io.GraphReader;
 
@@ -19,8 +15,6 @@ import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
