@@ -12,15 +12,12 @@ import org.insa.graph.io.GraphReader;
 
 import static org.junit.Assert.*;
 
-import java.awt.List;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class DijkstraAlgorithmTest {
@@ -64,10 +61,17 @@ public class DijkstraAlgorithmTest {
 		arcInspector= ArcInspectorFactory.getAllFilters().get(0);
 
 		//Path valid
-		System.out.println("--- Pour un path valid: ---");
+		System.out.println("--- Pour un chemin valide ---");
+		System.out.println(" ");
+		
+		//Britain
 		origin= graph.get(541036);
 		destination= graph.get(262972);
-		System.out.println("De " + origin+ "à" + destination);
+		
+		/*//Tunisia
+        origin= graph.get(74979);
+		destination= graph.get(59318);*/
+		
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
 		path = solution.getPath();
@@ -78,10 +82,11 @@ public class DijkstraAlgorithmTest {
         
         assertEquals(origin, path.getOrigin());
         assertEquals(destination, path.getDestination());
-        System.out.println("Origine et");
+        System.out.println("Origine et destination verifié ");
 
         assertTrue(path.isValid());
         
+        	//Verifie si tous les chemins de la solution est le plus court chemin
 		ShortestPathSolution [][] solution_tests = new ShortestPathSolution [path.getArcs().size()][path.getArcs().size()] ;
 		Path [][] path_tests = new Path [path.getArcs().size()][path.getArcs().size()] ;
 		
@@ -107,39 +112,71 @@ public class DijkstraAlgorithmTest {
 				}
 			}
 		}
-		   
+		
+		System.out.println("Tous les sous-chemins sont valides et represente le plus court chemin");
+		System.out.println(" ");
+		
+			//Vérification du chemin inverse 
+		//Britain   
 		destination= graph.get(262972);
 		origin= graph.get(541036);
-		System.out.println("De " + origin+ "à" + destination);
+		
+		/*//Tunisia
+		destination= graph.get(59318);
+		origin= graph.get(74979);*/
+		
+		System.out.println("Vérification du chemin inverse:");
 
+		System.out.println("De noeud n° " + origin.getId() + "  à noeud n° " + destination.getId());
+		System.out.println(" ");
+		
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
         solution_inverse = new DijkstraAlgorithm(data).doRun();
         path_inverse= solution_inverse.getPath();
         assertEquals(path.getLength(), path_inverse.getLength(),0);
         assertEquals(path.getMinimumTravelTime(), path_inverse.getMinimumTravelTime(),0);
         
+		System.out.println("Le chemin inverse est le même et a le même coût");
+		System.out.println(" ");
+
         
 		//Null path
-		System.out.println("*** Pour un null path ***");
+		System.out.println("--- Pour un chemin vide ---");
+		System.out.println(" ");
 		
+		//Britain
         origin= graph.get(251342);
 		destination= graph.get(251342);
 		
-		System.out.println("De " + origin+ "à" + destination);
+		/*//Tunisia
+        origin= graph.get(74979);
+		destination= graph.get(74979);*/
+		
+		System.out.println("De noeud n° " + origin.getId()+ " à noeud n° " + destination.getId());
+		System.out.println(" ");
 
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
 		path = solution.getPath();
         assertTrue(path.isEmpty());
-
+        
+		System.out.println("Le chemin est vide");
+		System.out.println(" ");
 
 		//Path not valid
-		System.out.println("*** Pour un path invalid ***");
+		System.out.println("--- Pour un chemin invalid ---");
+		System.out.println(" ");
 		
+		//Britain
         origin= graph.get(16029);
 		destination= graph.get(619891);
 		
-		System.out.println("De " + origin+ "à" + destination);
+		/*//Tunisia
+        origin= graph.get(74979);
+		destination= graph.get(202238);*/
+		
+		System.out.println("De noeud n° " + origin.getId()+ " à noeud n° " + destination.getId());
+		System.out.println(" ");
 
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
@@ -147,6 +184,10 @@ public class DijkstraAlgorithmTest {
 		Label destination_label= new Label(destination);
         assertEquals(Status.INFEASIBLE, solution.getStatus());
         assertEquals(Double.POSITIVE_INFINITY, destination_label.getCost(),0);
+        
+		System.out.println("Pas de chemin possible et le coût du noeud " + destination.getId() + " est infini");
+		System.out.println(" ");
+
 		
 	}
     
@@ -154,21 +195,28 @@ public class DijkstraAlgorithmTest {
     public void testSituation() throws IOException {
     	
 		System.out.println("*** Tests de correction commencent.. ***");
-    	
+		System.out.println(" ");
+
         map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/bretagne.mapgr";
+        //map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/tunisia.mapgr";
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
     	 
     	graph =reader.read();
     	
+		System.out.println("*** Carte: Bretagne***");
+		//System.out.println("*** Carte: Tunisia***");
+    	
 		System.out.println("*** Mode: distance ***");
-
+		System.out.println(" ");
+		
 		arcInspector= ArcInspectorFactory.getAllFilters().get(0);
 		
 		testdoRun(); 
 		
 		System.out.println("*** Mode: temps ***");
+		System.out.println(" ");
 		
 		arcInspector= ArcInspectorFactory.getAllFilters().get(2);
 		
@@ -180,7 +228,8 @@ public class DijkstraAlgorithmTest {
 	public void testdoRunOracle() throws IOException {
 		
 		System.out.println("*** Tests de correction de Dijkstra avec oracle commencent.. ***");
-		
+		System.out.println(" ");
+
 		ShortestPathSolution solution;
 		ShortestPathSolution expected;
 		Path solution_path;
@@ -209,13 +258,16 @@ public class DijkstraAlgorithmTest {
 			
 			if(solution.isFeasible() && expected.isFeasible())
 			{
+				System.out.println("De noeud n° " + expected_path.getOrigin().getId() + " à noeud n° " + expected_path.getDestination().getId());
 				assertEquals(expected_path.getLength(), solution_path.getLength() , 0);
+				System.out.println("Le coût de Bellmann en distance " + expected_path.getLength()+ " le coût de Dijksta en distance " + solution_path.getLength());
 				assertEquals(expected_path.getMinimumTravelTime(), solution_path.getMinimumTravelTime() , 0);
-
+				System.out.println("Le coût de Bellmann en temps " + expected_path.getMinimumTravelTime()+ " le coût de Dijkstra en temps " + solution_path.getMinimumTravelTime());
+				System.out.println(" ");
 	        }
 
-			
 		}
+		System.out.println("Test avec Oracle validé ");
 	}
 	
 	@Test
@@ -242,7 +294,8 @@ public class DijkstraAlgorithmTest {
 		origin= graph.get(541036);
 		destination= graph.get(262972);
 		
-		System.out.println("De " + origin+ "à" + destination);
+		System.out.println("De noeud n° " + origin.getId()+ " à noeud n° " + destination.getId());
+		System.out.println(" ");
 
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
@@ -252,11 +305,7 @@ public class DijkstraAlgorithmTest {
 		
 		arcInspector= ArcInspectorFactory.getAllFilters().get(2);
 		
-		origin= graph.get(541036);
-		destination= graph.get(262972);
 		
-		System.out.println("De " + origin+ "à" + destination);
-
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new DijkstraAlgorithm(data).doRun();
 		path = solution.getPath();
@@ -264,8 +313,12 @@ public class DijkstraAlgorithmTest {
 		length_fastest_path=path.getLength();
 		
 		assertTrue(length_fastest_path>=length_shortest_path);
+		System.out.println("La longueur du plus rapide chemin est plus grande ou egal à la longeur du plus court chemin ");
+
 		assertTrue(Minimum_Travel_Time_fastest_path<=Minimum_Travel_Time_shortest_path);
-		
+		System.out.println("La duré du plus rapide chemin est plus petite ou egal à la durée du plus court chemin ");
+		System.out.println(" ");
+
 	}
 	
 }

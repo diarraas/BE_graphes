@@ -30,11 +30,11 @@ public class Performances {
     	/*	Initializing Maps		*/
         
     	
-    	average_map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/belgium.mapgr";
-        small_map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/chile.mapgr";
-        bigger_map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/california.mapgr";
-        cars_only = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/midi-pyrenees.mapgr";
-        no_car = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/fractal.mapgr";
+    	average_map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/belgium.mapgr";
+        small_map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/chile.mapgr";
+        bigger_map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/california.mapgr";
+        cars_only = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/toulouse.mapgr";
+        no_car = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/bordeaux.mapgr";
         
         /*
        
