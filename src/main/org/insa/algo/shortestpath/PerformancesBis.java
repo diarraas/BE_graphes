@@ -50,7 +50,7 @@
 	        average_map = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/belgium.mapgr";
 	        small_map = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/chile.mapgr";
 	        bigger_map = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/california.mapgr";
-	        cars_only = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/Midi-pyrénées.mapgr";
+	        cars_only = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/Midi-pyrenees.mapgr";
 	        no_car = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/fractal.mapgr"; 
 	          
 	        /*	Initializing Readers	*/
@@ -132,7 +132,7 @@
 	    	
 	    	origin = 388093 ;
 	    	destination =  237791;
-	    	for(i=150; i < 200;i++) { //100 next couples of nodes on Midi-pyrénées map
+	    	for(i=150; i < 200;i++) { //100 next couples of nodes on Midi-pyrenees map
 	    		datas[i] = new ShortestPathData(cars_graph,cars_graph.get(origin), cars_graph.get(destination), inspector_cars_length);
 	    		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
 	    		astar[i] = new AStarAlgorithm(datas[i]);
@@ -152,7 +152,7 @@
 	    	
 	    	origin = 388093 ;
 	    	destination =  237791;
-	    	for(i=250; i < 300;i++) { //100 last couples of nodes on Midi-pyrénées map(time wise)
+	    	for(i=250; i < 300;i++) { //100 last couples of nodes on Midi-pyrenees map(time wise)
 	    		datas[i] = new ShortestPathData(cars_graph,cars_graph.get(origin), cars_graph.get(destination), inspector_cars_time);
 	    		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
 	    		astar[i] = new AStarAlgorithm(datas[i]);
@@ -169,9 +169,9 @@
 			BufferedWriter small = new BufferedWriter(new FileWriter("chile_distance_dijkstra_50_data.txt"));
 			BufferedWriter average = new BufferedWriter(new FileWriter("belgium_distance_dijkstra_50_data.txt"));
 			BufferedWriter big = new BufferedWriter(new FileWriter("california_distance_dijkstra_50_data.txt"));
-			BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrénées_distance_dijkstra_50_data.txt"));
+			BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrenees_distance_dijkstra_50_data.txt"));
 			BufferedWriter no_car = new BufferedWriter(new FileWriter("fractal_distance_dijkstra_50_data.txt"));
-			small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrénées\n");no_car.write("Fractal\n");
+			small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrenees\n");no_car.write("Fractal\n");
 			small.write("0\n50\nDijkstra\n"); average.write("0\n50\nDijkstra\n"); big.write("0 \n50\n Dijkstra\n"); cars.write("0\n50\nDijkstra\n");no_car.write("0\n50\nDijkstra\n");
 			int[] stats ;
 			for(i = 0; i < 50; i++) {
@@ -213,9 +213,9 @@
 			BufferedWriter small = new BufferedWriter(new FileWriter("chile_distance_astar_50_data.txt"));
 			BufferedWriter average = new BufferedWriter(new FileWriter("belgium_distance_astar_50_data.txt"));
 			BufferedWriter big = new BufferedWriter(new FileWriter("california_distance_astar_50_data.txt"));
-			BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrénées_distance_astar_50_data.txt"));
+			BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrenees_distance_astar_50_data.txt"));
 			BufferedWriter no_car = new BufferedWriter(new FileWriter("fractal_distance_astar_50_data.txt"));
-			small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrénées\n");no_car.write("Fractal\n");
+			small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrenees\n");no_car.write("Fractal\n");
 			small.write("0\n50\nA*\n"); average.write("0\n50\nA*\n"); big.write("0\n50\nA*\n"); cars.write("0\n50\nA*\n");no_car.write("0\n50\nA*\n");
 			int[] stats ;
 			for(i = 0; i < 50; i++) {
@@ -260,9 +260,9 @@
 			BufferedWriter small = new BufferedWriter(new FileWriter("chile_temps_dijkstra_50_data.txt"));
 			BufferedWriter average = new BufferedWriter(new FileWriter("belgium_temps_dijkstra_50_data.txt"));
 			BufferedWriter big = new BufferedWriter(new FileWriter("california_temps_dijkstra_50_data.txt"));
-			BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrénées_temps_dijkstra_50_data.txt"));
+			BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrenees_temps_dijkstra_50_data.txt"));
 			BufferedWriter no_car = new BufferedWriter(new FileWriter("fractal_temps_dijkstra_50_data.txt"));
-			small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrénées\n");no_car.write("Fractal\n");
+			small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrenees\n");no_car.write("Fractal\n");
 			small.write("1\n50\nDijkstra\n"); average.write("1\n50\nDijkstra\n"); big.write("0\n50\nDijkstra\n"); cars.write("0\n50\nDijkstra\n");no_car.write("0\n50\nDijkstra\n");
 			int[] stats ;
 			for(i = 0; i < 100; i++) {
@@ -304,9 +304,9 @@
 			BufferedWriter small = new BufferedWriter(new FileWriter("chile_temps_astar_50_data.txt"));
 			BufferedWriter average = new BufferedWriter(new FileWriter("belgium_temps_astar_50_data.txt"));
 			BufferedWriter big = new BufferedWriter(new FileWriter("california_temps_astar_50_data.txt"));
-			BufferedWriter cars = new BufferedWriter(new FileWriter("Midi-pyrénées_temps_astar_50_data.txt"));
+			BufferedWriter cars = new BufferedWriter(new FileWriter("Midi-pyrenees_temps_astar_50_data.txt"));
 			BufferedWriter no_car = new BufferedWriter(new FileWriter("fractal_temps_astar_50_data.txt"));
-			small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrénées\n");no_car.write("Fractal\n");
+			small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrenees\n");no_car.write("Fractal\n");
 			small.write("1\n50\nA*\n"); average.write("1\n50\nA*\n"); big.write("0\n50\nA*\n"); cars.write("0\n50\nA*\n");no_car.write("0\n50\nA*\n");
 			int[] stats ;
 			for(i =0 ; i < 100; i++) { 
