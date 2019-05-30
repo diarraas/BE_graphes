@@ -163,7 +163,7 @@ public class DijkstraAlgorithmTest {
     	
 		System.out.println("*** Tests de correction commencent.. ***");
     	
-        map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bretagne.mapgr";
+        map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/bretagne.mapgr";
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
@@ -195,7 +195,7 @@ public class DijkstraAlgorithmTest {
 		Path expected_path;
 		int i;
 		
-        map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
+        map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/guadeloupe.mapgr";
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
@@ -238,7 +238,7 @@ public class DijkstraAlgorithmTest {
 		double length_shortest_path; 
 		double length_fastest_path; 
 		
-        map = "/home/dhouib/Bureau/S2/BE GRAPHE/BE_graphes/maps/bretagne.mapgr";
+        map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/bretagne.mapgr";
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
