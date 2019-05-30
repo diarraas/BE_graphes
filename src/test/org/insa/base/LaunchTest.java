@@ -13,11 +13,11 @@ public class LaunchTest {
 		//Lauching tests
 		System.out.println("Launching Tests");
 
-		PerformancesBis.launchTestAstarDistance();
+	//	PerformancesBis.launchTestAstarDistance();
 		
 		System.out.println("A* Distance ----- OK");
 		
-		PerformancesBis.launchTestAstarTime();
+	//	PerformancesBis.launchTestAstarTime();
 		
 		System.out.println("A* Time ----- OK");
 		 

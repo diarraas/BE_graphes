@@ -41,7 +41,7 @@
 	    	
 	    	average_map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/belgium.mapgr";
 	        small_map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/chile.mapgr";
-	        bigger_map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/california.mapgr";
+	        bigger_map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/toulouse.mapgr";
 	        cars_only = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/midi-pyrenees.mapgr";
 	        no_car = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/fractal.mapgr";
 	        
@@ -75,91 +75,86 @@
 	    	no_car_graph = no_car_reader.read();
 	    	 
 	    	/*	Initializing Data	and Algorithms*/ 
-	    	WeaklyConnectedComponentsAlgorithm weak_small = new WeaklyConnectedComponentsAlgorithm(new WeaklyConnectedComponentsData(small_graph));
-	   	 	ArrayList<ArrayList<Node>>  comp_small = weak_small.run().getComponents();
+	    	//WeaklyConnectedComponentsAlgorithm weak_small = new WeaklyConnectedComponentsAlgorithm(new WeaklyConnectedComponentsData(small_graph));
+	   	 	//ArrayList<ArrayList<Node>>  comp_small = weak_small.run().getComponents();
 	   	 	
-	   	 	WeaklyConnectedComponentsAlgorithm weak_average = new WeaklyConnectedComponentsAlgorithm(new WeaklyConnectedComponentsData(average_graph));
-		 	ArrayList<ArrayList<Node>>  comp_average = weak_average.run().getComponents();
+	   	 	//WeaklyConnectedComponentsAlgorithm weak_average = new WeaklyConnectedComponentsAlgorithm(new WeaklyConnectedComponentsData(average_graph));
+		 	//ArrayList<ArrayList<Node>>  comp_average = weak_average.run().getComponents();
 		 	
 		 	//WeaklyConnectedComponentsAlgorithm weak_big = new WeaklyConnectedComponentsAlgorithm(new WeaklyConnectedComponentsData(bigger_graph));
 	   	 	//ArrayList<ArrayList<Node>>  comp_big = weak_big.run().getComponents();
 	   	 	
-	   	 	WeaklyConnectedComponentsAlgorithm weak_cars = new WeaklyConnectedComponentsAlgorithm(new WeaklyConnectedComponentsData(cars_graph));
-		 	ArrayList<ArrayList<Node>>  comp_cars = weak_cars.run().getComponents();
+	   	 	//WeaklyConnectedComponentsAlgorithm weak_cars = new WeaklyConnectedComponentsAlgorithm(new WeaklyConnectedComponentsData(cars_graph));
+		 	//ArrayList<ArrayList<Node>>  comp_cars = weak_cars.run().getComponents();
 		 	
 		 	//WeaklyConnectedComponentsAlgorithm weak_nocar = new WeaklyConnectedComponentsAlgorithm(new WeaklyConnectedComponentsData(no_car_graph));
 		 	//ArrayList<ArrayList<Node>>  comp_nocar = weak_nocar.run().getComponents();
 		 	
-	    	datas = new ShortestPathData[300];
+		 	datas = new ShortestPathData[300];
 	    	dijkstra = new DijkstraAlgorithm[300] ;
 	    	astar = new AStarAlgorithm[300] ;
 	    	int i;
 	    	
-	    	int origin = comp_small.get(0).get(0).getId();
-	    	int destination = comp_small.get(0).get(1).getId();
-
-
+	    	int origin = 588713;
+	    	int destination = 71369 ;
 	    	
-
 	    	for(i=0; i<50;i++) { //100 first couples of nodes on small map
 	    		datas[i] = new ShortestPathData(small_graph,small_graph.get(origin), small_graph.get(destination), inspector_all);
 	    		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
-	    		astar[i] = new AStarAlgorithm(datas[i]);
-	    		origin = comp_small.get(i%comp_small.size()).get(i%comp_small.get(i%comp_small.size()).size()).getId();
-	    		destination = comp_small.get(i%comp_small.size()).get((i+1)%comp_small.get(i%comp_small.size()).size()).getId();
+	    		//astar[i] = new AStarAlgorithm(datas[i]);
+	    		origin = Math.abs((origin + (-1)*(i+1)*1234)%(small_graph.size()));
+	    		destination = Math.abs((destination - (-1)*(i+1)*1234)%(small_graph.size()));
 	    	}
 	    	
-	    	origin = comp_average.get(0).get(0).getId();
-	    	destination = comp_average.get(0).get(0).getId();
+	    	origin = 778946;
+	    	destination = 36231 ;
 	    	for(i=50; i< 100;i++) { //100 second couples of nodes on average map
 	    		datas[i] = new ShortestPathData(average_graph,average_graph.get(origin), average_graph.get(destination), inspector_all);
 	    		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
-	    		astar[i] = new AStarAlgorithm(datas[i]);
-	    		origin = comp_average.get(i%comp_average.size()).get(i%comp_average.get(i%comp_average.size()).size()).getId();
-	    		destination = comp_average.get(i%comp_average.size()).get((i+1)%comp_average.get(i%comp_average.size()).size()).getId();
+	    		//astar[i] = new AStarAlgorithm(datas[i]);
+	    		origin = Math.abs((origin + (-1)*(i+1)*1234)%(average_graph.size()));
+	        	destination = Math.abs((destination - (-1)*(i+1)*1234)%(average_graph.size()));
 	    	}
-	    	 
-	    	origin = 1712929;
-	    	destination = 928289 ;
+	    	
+	    	origin = 5000;
+	    	destination = 7000 ;
 	    	for(i=100; i< 150;i++) { //100 third couples of nodes on bigger map
 	    		datas[i] = new ShortestPathData(bigger_graph,bigger_graph.get(origin), bigger_graph.get(destination), inspector_all);
 	    		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
-	    		astar[i] = new AStarAlgorithm(datas[i]);
+	    		//astar[i] = new AStarAlgorithm(datas[i]);
 	    		origin = Math.abs((origin + (-1)*(i+1)*1234)%(bigger_graph.size()));
 	        	destination = Math.abs((destination - (-1)*(i+1)*1234)%(bigger_graph.size()));
 	    	}
 	    	
-	    	
 	    	origin = 388093 ;
 	    	destination =  237791;
-	    	for(i=150; i < 200;i++) { //100 next couples of nodes on Midi-pyrenees map
+	    	for(i=150; i < 200;i++) { //100 next couples of nodes on Midi-pyrénées map
 	    		datas[i] = new ShortestPathData(cars_graph,cars_graph.get(origin), cars_graph.get(destination), inspector_cars_length);
 	    		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
-	    		astar[i] = new AStarAlgorithm(datas[i]);
-	    		origin = comp_cars.get(i%comp_cars.size()).get(i%comp_cars.get(i%comp_cars.size()).size()).getId();
-	    		destination = comp_cars.get(i%comp_cars.size()).get((i+1)%comp_cars.get(i%comp_cars.size()).size()).getId();
+	    		//astar[i] = new AStarAlgorithm(datas[i]);
+	    		origin = Math.abs((origin + (-1)*(i+1)*1234)%(cars_graph.size()));
+	        	destination = Math.abs((destination - (-1)*(i+1)*1234)%(cars_graph.size()));
 	    	}
 	    	
-	    	origin = 60852 ;
-	    	destination =  319735;
+	    	origin = 7000 ;
+	    	destination =  4000;
 	    	for(i=200; i < 250;i++) { //100 next couples of nodes on Fractal map
 	    		datas[i] = new ShortestPathData(no_car_graph,no_car_graph.get(origin), no_car_graph.get(destination), inspector_no_car);
 	    		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
-	    		astar[i] = new AStarAlgorithm(datas[i]);
+	    		//astar[i] = new AStarAlgorithm(datas[i]);
 	    		origin = Math.abs((origin + (-1)*(i+1)*123)%(no_car_graph.size()));
 	        	destination = Math.abs((destination - (-1)*(i+1)*123)%(no_car_graph.size()));
 	    	}
 	    	
 	    	origin = 388093 ;
 	    	destination =  237791;
-	    	for(i=250; i < 300;i++) { //100 last couples of nodes on Midi-pyrenees map(time wise)
+	    	for(i=250; i < 300;i++) { //100 last couples of nodes on Midi-pyrénées map(time wise)
 	    		datas[i] = new ShortestPathData(cars_graph,cars_graph.get(origin), cars_graph.get(destination), inspector_cars_time);
 	    		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
-	    		astar[i] = new AStarAlgorithm(datas[i]);
-	    		origin = comp_cars.get(i%comp_cars.size()).get(i%comp_cars.get(i%comp_cars.size()).size()).getId();
-	    		destination = comp_cars.get(i%comp_cars.size()).get((i+1)%comp_cars.get(i%comp_cars.size()).size()).getId();
+	    		//astar[i] = new AStarAlgorithm(datas[i]);
+	    		origin = Math.abs((origin + (-1)*(i+1)*123)%(cars_graph.size()));
+	        	destination = Math.abs((destination - (-1)*(i+1)*123)%(cars_graph.size()));
 	    	}
-	  	
 	    }
 	    
 	     @Test   
@@ -265,7 +260,7 @@
 			small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrenees\n");no_car.write("Fractal\n");
 			small.write("1\n50\nDijkstra\n"); average.write("1\n50\nDijkstra\n"); big.write("0\n50\nDijkstra\n"); cars.write("0\n50\nDijkstra\n");no_car.write("0\n50\nDijkstra\n");
 			int[] stats ;
-			for(i = 0; i < 100; i++) {
+			for(i = 0; i < 50; i++) {
 				solutions[i] = dijkstra[i].run();
 				stats = dijkstra[i].getStats();
 				if(solutions[i] != null && solutions[i].isFeasible())			small.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getMinimumTravelTime()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
@@ -309,7 +304,7 @@
 			small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrenees\n");no_car.write("Fractal\n");
 			small.write("1\n50\nA*\n"); average.write("1\n50\nA*\n"); big.write("0\n50\nA*\n"); cars.write("0\n50\nA*\n");no_car.write("0\n50\nA*\n");
 			int[] stats ;
-			for(i =0 ; i < 100; i++) { 
+			for(i =0 ; i < 50; i++) { 
 				solutions[i] = astar[i].run();
 				stats = astar[i].getStats();
 				if(solutions[i] != null && solutions[i].isFeasible())		small.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getMinimumTravelTime()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
@@ -408,8 +403,8 @@
     		datas[i] = new ShortestPathData(small_graph,small_graph.get(origin), small_graph.get(destination), inspector);
     		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
     		astar[i] = new AStarAlgorithm(datas[i]);
-    		origin = Math.abs((origin + (-1)*(i+1)*1234)%(small_graph.size()));
-    		destination = Math.abs((destination - (-1)*(i+1)*1234)%(small_graph.size()));
+    		origin = Math.abs((origin + (-1)*(i+ i*10)*1234)%(small_graph.size()));
+    		destination = Math.abs((destination - (-1)*(i+ i*10)*1234)%(small_graph.size()));
     	}
     	
     	origin = 778946;
@@ -418,8 +413,8 @@
     		datas[i] = new ShortestPathData(average_graph,average_graph.get(origin), average_graph.get(destination), inspector);
     		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
     		astar[i] = new AStarAlgorithm(datas[i]);
-    		origin = Math.abs((origin + (-1)*(i+1)*1234)%(average_graph.size()));
-        	destination = Math.abs((destination - (-1)*(i+1)*1234)%(average_graph.size()));
+    		origin = Math.abs((origin + (-1)*(i+ i*10)*1234)%(average_graph.size()));
+        	destination = Math.abs((destination - (-1)*(i+ i*10)*1234)%(average_graph.size()));
     	}
     	
     	origin = 1712929;
@@ -428,8 +423,8 @@
     		datas[i] = new ShortestPathData(bigger_graph,bigger_graph.get(origin), bigger_graph.get(destination), inspector);
     		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
     		astar[i] = new AStarAlgorithm(datas[i]);
-    		origin = Math.abs((origin + (-1)*(i+1)*1234)%(bigger_graph.size()));
-        	destination = Math.abs((destination - (-1)*(i+1)*1234)%(bigger_graph.size()));
+    		origin = Math.abs((origin + (-1)*(i+ i*10)*1234)%(bigger_graph.size()));
+        	destination = Math.abs((destination - (-1)*(i+ i*10)*1234)%(bigger_graph.size()));
 
 
     	}
@@ -441,8 +436,8 @@
     		datas[i] = new ShortestPathData(cars_graph,cars_graph.get(origin), cars_graph.get(destination), inspector);
     		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
     		astar[i] = new AStarAlgorithm(datas[i]);
-    		origin = Math.abs((origin + (-1)*(i+1)*1234)%(cars_graph.size()));
-        	destination = Math.abs((destination - (-1)*(i+1)*1234)%(cars_graph.size()));
+    		origin = Math.abs((origin + (-1)*(i+ i*10)*1234)%(cars_graph.size()));
+        	destination = Math.abs((destination - (-1)*(i+ i*10)*1234)%(cars_graph.size()));
     	}
     	
     	inspector = ArcInspectorFactory.getAllFilters().get(3);
@@ -452,8 +447,8 @@
     		datas[i] = new ShortestPathData(no_car_graph,no_car_graph.get(origin), no_car_graph.get(destination), inspector);
     		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
     		astar[i] = new AStarAlgorithm(datas[i]);
-    		origin = Math.abs((origin + (-1)*(i+1)*1234)%(no_car_graph.size()));
-        	destination = Math.abs((destination - (-1)*(i+1)*1234)%(no_car_graph.size()));
+    		origin = Math.abs((origin + (-1)*(i+ i*10)*1234)%(no_car_graph.size()));
+        	destination = Math.abs((destination - (-1)*(i+ i*10)*1234)%(no_car_graph.size()));
     	}
     	
     }

@@ -318,7 +318,7 @@ public class PerformancesTest {
 			solutions[i] = astar[i].run();
 			stats = astar[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())		big.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getMinimumTravelTime()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
-		}
+		} 
 		
 		for(i = 250; i < 300; i++) {
 			solutions[i] = astar[i].run();
