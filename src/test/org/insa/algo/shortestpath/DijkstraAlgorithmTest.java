@@ -198,8 +198,8 @@ public class DijkstraAlgorithmTest {
 		System.out.println("*** Tests de vérifications commencent.. ***");
 		System.out.println(" ");
 
-        map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bretagne.mapgr";
-        //map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/tunisia.mapgr";
+        map = "bretagne.mapgr";
+        //map = "tunisia.mapgr";
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
@@ -237,7 +237,7 @@ public class DijkstraAlgorithmTest {
 		Path expected_path;
 		int i;
 		
-        map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
+        map = "guadeloupe.mapgr";
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
@@ -312,8 +312,8 @@ public class DijkstraAlgorithmTest {
 		double length_shortest_path; 
 		double length_fastest_path; 
 		
-        map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bretagne.mapgr";
-        //map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/tunisia.mapgr";
+        map = "bretagne.mapgr";
+        //map = "tunisia.mapgr";
 
 		System.out.println("*** Carte: Bretagne***");
 		//System.out.println("*** Carte: Tunisia***");

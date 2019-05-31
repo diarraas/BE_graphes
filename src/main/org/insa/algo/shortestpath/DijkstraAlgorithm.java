@@ -22,7 +22,12 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     protected BinaryHeap<Label> heap = new BinaryHeap<>() ;
     protected int stats[] = new int[3] ;
     
-    protected Label[] initLabels() {
+    public int[] getStats() {
+		return stats;
+	}
+
+
+	protected Label[] initLabels() {
     	Label labels[] = new Label[nbNodes] ;
     	int i ;
     	for(i = 0; i < nbNodes; i++) {
