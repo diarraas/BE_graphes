@@ -3,6 +3,7 @@ package org.insa.algo.shortestpath;
 import org.insa.algo.AbstractSolution.Status;
 import org.insa.algo.ArcInspector;
 import org.insa.algo.ArcInspectorFactory;
+import org.insa.algo.AbstractInputData.Mode;
 import org.insa.graph.Graph;
 import org.insa.graph.Label;
 import org.insa.graph.Node;
@@ -63,25 +64,30 @@ public class AStarAlgorithmTest {
 		//Path valid
 		System.out.println("--- Pour un chemin valide ---");
 		System.out.println(" ");
-
+		
+		//Britain
 		origin= graph.get(541036);
 		destination= graph.get(262972);
+		
+		/*//Tunisia
+        origin= graph.get(74979);
+		destination= graph.get(59318);*/
+		
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
 		solution = new AStarAlgorithm(data).doRun();
 		path = solution.getPath();
 		
-        assertTrue(path.isValid());
-        System.out.println("Chemin Valide");
 		
         assertEquals(Status.OPTIMAL, solution.getStatus());
-        System.out.println("Statut obtimal");
+        System.out.println("Statut optimal");
         
         assertEquals(origin, path.getOrigin());
         assertEquals(destination, path.getDestination());
-        System.out.println("Origine et destination verifié ");
+        System.out.println("Origine et destination vérifiées ");
 
+        assertTrue(path.isValid());
         
-        	//Verifie si tous les sous-chemins de la solution est le plus court chemin
+        	//Verifie si tous les chemins de la solution est le plus court chemin
 		ShortestPathSolution [][] solution_tests = new ShortestPathSolution [path.getArcs().size()][path.getArcs().size()] ;
 		Path [][] path_tests = new Path [path.getArcs().size()][path.getArcs().size()] ;
 		
@@ -108,32 +114,46 @@ public class AStarAlgorithmTest {
 			}
 		}
 		
-		System.out.println("Tous les sous-chemins sont valides et represente le plus court chemin");
-
-		   
+		System.out.println("Tous les sous-chemins sont valides et représentent des plus court chemin");
+		System.out.println(" ");
+		
+			//Vérification du chemin inverse 
+		//Britain   
 		destination= graph.get(262972);
 		origin= graph.get(541036);
+		
+		/*//Tunisia
+		destination= graph.get(59318);
+		origin= graph.get(74979);*/
+		
+		System.out.println("Vérification du chemin inverse:");
+
 		System.out.println("De noeud n° " + origin.getId() + "  à noeud n° " + destination.getId());
 		System.out.println(" ");
-
+		
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
         solution_inverse = new AStarAlgorithm(data).doRun();
         path_inverse= solution_inverse.getPath();
         assertEquals(path.getLength(), path_inverse.getLength(),0);
         assertEquals(path.getMinimumTravelTime(), path_inverse.getMinimumTravelTime(),0);
         
-		System.out.println("Le chemin inverse est le même et de même coût");
+		System.out.println("Le chemin inverse est le même et a le même coût");
 		System.out.println(" ");
 
         
 		//Null path
 		System.out.println("--- Pour un chemin vide ---");
 		System.out.println(" ");
-
+		
+		//Britain
         origin= graph.get(251342);
 		destination= graph.get(251342);
 		
-		System.out.println("De noeud n° " + origin.getId()+ " à noeud n° " + destination.getId());
+		/*//Tunisia
+        origin= graph.get(74979);
+		destination= graph.get(74979);*/
+		
+		System.out.println("De noeud n° " + origin.getId()+ " à noeud n° " + destination.getId()+ data.getDestination().getId() + " En mode " + data.getMode());
 		System.out.println(" ");
 
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
@@ -147,9 +167,14 @@ public class AStarAlgorithmTest {
 		//Path not valid
 		System.out.println("--- Pour un chemin invalide ---");
 		System.out.println(" ");
-
+		
+		//Britain
         origin= graph.get(16029);
 		destination= graph.get(619891);
+		
+		/*//Tunisia
+        origin= graph.get(74979);
+		destination= graph.get(202238);*/
 		
 		System.out.println("De noeud n° " + origin.getId()+ " à noeud n° " + destination.getId());
 		System.out.println(" ");
@@ -170,19 +195,20 @@ public class AStarAlgorithmTest {
     @Test
     public void testSituation() throws IOException {
     	
-		System.out.println("*** Tests de correction commencent.. ***");
+		System.out.println("*** Tests de vérifications commencent.. ***");
 		System.out.println(" ");
 
-        map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/bretagne.mapgr";
+        map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bretagne.mapgr";
+        //map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/tunisia.mapgr";
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
     	 
     	graph =reader.read();
     	
-        System.out.println("Carte: Bretagne");
-		System.out.println(" ");
-
+		System.out.println("*** Carte: Bretagne***");
+		//System.out.println("*** Carte: Tunisia***");
+    	
 		System.out.println("*** Mode: distance ***");
 		System.out.println(" ");
 		
@@ -202,7 +228,7 @@ public class AStarAlgorithmTest {
 	@Test
 	public void testdoRunOracle() throws IOException {
 		
-		System.out.println("*** Tests de correction de AStar avec oracle commencent.. ***");
+		System.out.println("*** Tests de vérifications de AStar avec oracle commencent.. ***");
 		System.out.println(" ");
 
 		ShortestPathSolution solution;
@@ -211,16 +237,13 @@ public class AStarAlgorithmTest {
 		Path expected_path;
 		int i;
 		
-        map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/guadeloupe.mapgr";
+        map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
     	 
     	graph =reader.read();
 		
-        System.out.println("Carte: Guadeloupe");
-		System.out.println(" ");
-
 		ArrayList<ShortestPathData> oracle_test= oracle();
 		
 		for (i=0 ; i< oracle_test.size() ;i++) {
@@ -233,73 +256,54 @@ public class AStarAlgorithmTest {
 			
 			solution_path = solution.getPath();
 			expected_path = expected.getPath();
-			
-			if(solution.isFeasible() && expected.isFeasible())
-			{
-				System.out.println("De noeud n° " + expected_path.getOrigin().getId() + " à noeud n° " + expected_path.getDestination().getId());
-				assertEquals(expected_path.getLength(), solution_path.getLength() , 0);
-				System.out.println("Le coût de Bellmann en distance " + expected_path.getLength()+ " le coût de Dijksta en distance " + solution_path.getLength());
-				assertEquals(expected_path.getMinimumTravelTime(), solution_path.getMinimumTravelTime() , 0);
-				System.out.println("Le coût de Bellmann en temps " + expected_path.getMinimumTravelTime()+ " le coût de AStar en temps " + solution_path.getMinimumTravelTime());
+			if(data.getOrigin().equals(data.getDestination())) {
+				System.out.println("De noeud n° " + data.getOrigin().getId() + " à noeud n° " + data.getDestination().getId());
+				System.out.println("Chemin null");
 				System.out.println(" ");
 
-	        }
+			}
+			else {
+				if(data.getMode()==Mode.LENGTH) {
+					if(solution.isFeasible() && expected.isFeasible())
+					{
+						System.out.println("De noeud n° " + data.getOrigin().getId() + " à noeud n° " + data.getDestination().getId());
+						assertEquals(expected_path.getLength(), solution_path.getLength() , 0);
+						System.out.println("Le coût de Bellmann en distance " + expected_path.getLength()+ " le coût de Dijksta en distance " + solution_path.getLength());
+						System.out.println(" ");
+			        }
+					else {
+						System.out.println("De noeud n° " + data.getOrigin().getId() + " à noeud n° " + data.getDestination().getId() + " En mode " + data.getMode());
+						System.out.println("Chemin inexistant");
+						System.out.println(" ");
+	
+					}
+				}
+				if (data.getMode()==Mode.TIME) {
+					if(solution.isFeasible() && expected.isFeasible())
+					{
+						System.out.println("De noeud n° " + data.getOrigin().getId() + " à noeud n° " + data.getDestination().getId());
+						System.out.println("Le coût de Bellmann en temps " + expected_path.getMinimumTravelTime()+ " le coût de Dijkstra en temps " + solution_path.getMinimumTravelTime());
+						System.out.println(" ");
+			        }
+					else {
+						System.out.println("De noeud n° " + data.getOrigin().getId() + " à noeud n° " + data.getDestination().getId() + " En mode " + data.getMode());
+						System.out.println("Chemin inexistant");
+						System.out.println(" ");
+	
+					}
+				}
+			}	
 
 		}
 		System.out.println("Test avec Oracle validé ");
-	}
-	
-	@Test
-	public void testdoRunOracleDijkstra() throws IOException {
-		
-		System.out.println("*** Tests de correction de AStar avec oracle commencent.. ***");
 		System.out.println(" ");
 
-		ShortestPathSolution solution;
-		ShortestPathSolution expected;
-		Path solution_path;
-		Path expected_path;
-		int i;
-		
-        map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/guadeloupe.mapgr";
-
-    	reader = new BinaryGraphReader(
-				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
-    	 
-    	graph =reader.read();
-		
-		ArrayList<ShortestPathData> oracle_test= oracle();
-		
-		for (i=0 ; i< oracle_test.size() ;i++) {
-			data = oracle_test.get(i);
-			
-			solution = new AStarAlgorithm(data).doRun();
-
-			expected = new DijkstraAlgorithm(data).doRun();
-
-			
-			solution_path = solution.getPath();
-			expected_path = expected.getPath();
-			
-			if(solution.isFeasible() && expected.isFeasible())
-			{
-				System.out.println("De noeud n° " + expected_path.getOrigin().getId() + " à noeud n° " + expected_path.getDestination().getId());
-				assertEquals(expected_path.getLength(), solution.getPath().getLength() , 0);
-				System.out.println("Le coût de Dijkstra en distance " + expected_path.getLength()+ " le coût de AStar en distance " + solution_path.getLength());
-				assertEquals(expected_path.getMinimumTravelTime(), solution_path.getMinimumTravelTime() , 0);
-				System.out.println("Le coût de Dijkstra en temps " + expected_path.getMinimumTravelTime()+ " le coût de AStar en temps " + solution_path.getMinimumTravelTime());
-				System.out.println(" ");
-
-	        }
-
-		}
-		System.out.println("Test avec Oracle validé ");
 	}
 	
 	@Test
 	public void testdoRunSansOracle() throws IOException {
 		
-		System.out.println("*** Tests de correction de AStar sans oracle commencent.. ***");
+		System.out.println("*** Tests de vérifications de AStar sans oracle commencent.. ***");
 
 		ShortestPathSolution solution;
 		Path path ;
@@ -308,22 +312,29 @@ public class AStarAlgorithmTest {
 		double length_shortest_path; 
 		double length_fastest_path; 
 		
-        map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/bretagne.mapgr";
+        map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/bretagne.mapgr";
+        //map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/tunisia.mapgr";
+
+		System.out.println("*** Carte: Bretagne***");
+		//System.out.println("*** Carte: Tunisia***");
+		System.out.println(" ");
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
     	 
     	graph =reader.read();
     	
-        System.out.println("Carte: Bretagne");
-		System.out.println(" ");
-    	
 		arcInspector= ArcInspectorFactory.getAllFilters().get(0);
 		
+		//Britain
 		origin= graph.get(541036);
 		destination= graph.get(262972);
 		
-		System.out.println("De noeud n° " + origin.getId()+ " à noeud n° " + destination.getId());
+		/*//Tunisia
+        origin= graph.get(74979);
+		destination= graph.get(59318);*/
+		
+		System.out.println("De noeud n° " +origin.getId()+ " à noeud n° " + destination.getId());
 		System.out.println(" ");
 
 		data = new ShortestPathData(graph, origin , destination, arcInspector);
@@ -343,9 +354,87 @@ public class AStarAlgorithmTest {
 		
 		assertTrue(length_fastest_path>=length_shortest_path);
 		System.out.println("La longueur du plus rapide chemin est plus grande ou egal à la longeur du plus court chemin ");
+		
+		System.out.println("La longueur du plus rapide chemin est "+ length_fastest_path
+				+" la longeur du plus court chemin " + length_shortest_path );
 
-		assertTrue(Minimum_Travel_Time_fastest_path<=Minimum_Travel_Time_shortest_path);
-		System.out.println("La duré du plus rapide chemin est plus petite ou egal à la durée du plus court chemin ");
+		System.out.println(" ");
+		System.out.println("Test sans Oracle validé ");
+
+	}
+	
+	@Test
+	public void testdoRunOracleDijkstra() throws IOException {
+		
+		System.out.println("*** Tests de vérifications de AStar avec oracle commencent.. ***");
+		System.out.println(" ");
+
+		ShortestPathSolution solution;
+		ShortestPathSolution expected;
+		Path solution_path;
+		Path expected_path;
+		int i;
+		
+        map = "/home/dhouib/Bureau/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/guadeloupe.mapgr";
+
+    	reader = new BinaryGraphReader(
+				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
+    	 
+    	graph =reader.read();
+		
+		ArrayList<ShortestPathData> oracle_test= oracle();
+		
+		for (i=0 ; i< oracle_test.size() ;i++) {
+			data = oracle_test.get(i);
+			
+			solution = new AStarAlgorithm(data).doRun();
+
+			expected = new DijkstraAlgorithm(data).doRun();
+
+			
+			solution_path = solution.getPath();
+			expected_path = expected.getPath();
+			if(data.getOrigin().equals(data.getDestination())) {
+				System.out.println("De noeud n° " + data.getOrigin().getId() + " à noeud n° " + data.getDestination().getId());
+				System.out.println("Chemin null");
+				System.out.println(" ");
+
+			}
+			else {
+				if(data.getMode()==Mode.LENGTH) {
+					if(solution.isFeasible() && expected.isFeasible())
+					{
+						System.out.println("De noeud n° " + data.getOrigin().getId() + " à noeud n° " + data.getDestination().getId());
+						assertEquals(expected_path.getLength(), solution_path.getLength() , 0);
+						System.out.println("Le coût de Bellmann en distance " + expected_path.getLength()+ " le coût de Dijksta en distance " + solution_path.getLength());
+						System.out.println(" ");
+			        }
+					else {
+						System.out.println("De noeud n° " + data.getOrigin().getId() + " à noeud n° " + data.getDestination().getId() + " En mode " + data.getMode());
+						System.out.println("Chemin inexistant");
+						System.out.println(" ");
+	
+					}
+				}
+				if (data.getMode()==Mode.TIME) {
+					if(solution.isFeasible() && expected.isFeasible())
+					{
+						System.out.println("De noeud n° " + data.getOrigin().getId() + " à noeud n° " + data.getDestination().getId());
+						//assertEquals(expected_path.getMinimumTravelTime(), solution_path.getMinimumTravelTime() , 0);
+						System.out.println("Le coût de Bellmann en temps " + expected_path.getMinimumTravelTime()+ " le coût de Dijkstra en temps " + solution_path.getMinimumTravelTime());
+						System.out.println(" ");
+			        }
+					else {
+						System.out.println("De noeud n° " + data.getOrigin().getId() + " à noeud n° " + data.getDestination().getId() + " En mode " + data.getMode());
+						System.out.println("Chemin inexistant");
+						System.out.println(" ");
+	
+					}
+				}
+			}	
+
+		}
+		System.out.println("Test avec Oracle Dijkstra validé ");
 		System.out.println(" ");
 
 	}
