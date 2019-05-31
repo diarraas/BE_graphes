@@ -194,7 +194,7 @@ public class DijkstraAlgorithmTest {
     @Test
     public void testSituation() throws IOException {
     	
-		System.out.println("*** Tests de correction commencent.. ***");
+		System.out.println("*** Tests de vérifications commencent.. ***");
 		System.out.println(" ");
 
         map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/bretagne.mapgr";
@@ -227,7 +227,7 @@ public class DijkstraAlgorithmTest {
 	@Test
 	public void testdoRunOracle() throws IOException {
 		
-		System.out.println("*** Tests de correction de Dijkstra avec oracle commencent.. ***");
+		System.out.println("*** Tests de vérifications de Dijkstra avec oracle commencent.. ***");
 		System.out.println(" ");
 
 		ShortestPathSolution solution;
@@ -273,7 +273,7 @@ public class DijkstraAlgorithmTest {
 	@Test
 	public void testdoRunSansOracle() throws IOException {
 		
-		System.out.println("*** Tests de correction de Dijkstra sans oracle commencent.. ***");
+		System.out.println("*** Tests de vérifications de Dijkstra sans oracle commencent.. ***");
 
 		ShortestPathSolution solution;
 		Path path ;
@@ -283,6 +283,11 @@ public class DijkstraAlgorithmTest {
 		double length_fastest_path; 
 		
         map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/bretagne.mapgr";
+        //map = "/home/emna/Bureau/S2/BE GRAPHE/BE_graphes/maps/tunisia.mapgr";
+
+		System.out.println("*** Carte: Bretagne***");
+		//System.out.println("*** Carte: Tunisia***");
+		System.out.println(" ");
 
     	reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(map))));
@@ -291,8 +296,13 @@ public class DijkstraAlgorithmTest {
     	
 		arcInspector= ArcInspectorFactory.getAllFilters().get(0);
 		
+		//Britain
 		origin= graph.get(541036);
 		destination= graph.get(262972);
+		
+		/*//Tunisia
+        origin= graph.get(74979);
+		destination= graph.get(59318);*/
 		
 		System.out.println("De noeud n° " + origin.getId()+ " à noeud n° " + destination.getId());
 		System.out.println(" ");
@@ -314,10 +324,16 @@ public class DijkstraAlgorithmTest {
 		
 		assertTrue(length_fastest_path>=length_shortest_path);
 		System.out.println("La longueur du plus rapide chemin est plus grande ou egal à la longeur du plus court chemin ");
+		
+		System.out.println("La longueur du plus rapide chemin est "+ length_fastest_path
+				+" la longeur du plus court chemin " + length_shortest_path );
 
 		assertTrue(Minimum_Travel_Time_fastest_path<=Minimum_Travel_Time_shortest_path);
 		System.out.println("La duré du plus rapide chemin est plus petite ou egal à la durée du plus court chemin ");
+		System.out.println("La duré du plus rapide chemin "+  Minimum_Travel_Time_fastest_path +
+				" la durée du plus court chemin " + Minimum_Travel_Time_shortest_path);
 		System.out.println(" ");
+		System.out.println("Test sans Oracle validé ");
 
 	}
 	
