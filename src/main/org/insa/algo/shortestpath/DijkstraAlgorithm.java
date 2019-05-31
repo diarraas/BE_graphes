@@ -30,10 +30,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         }
     	return labels;
     }
-    
-    public int[] getStats() {
-		return stats;
-	}
+   
     
     @Override
     protected ShortestPathSolution doRun() {
