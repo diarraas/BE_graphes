@@ -15,7 +15,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     }
     
     protected final ShortestPathData data = getInputData();
-    
+    protected double time ;
     protected ShortestPathSolution solution ;
     protected final Graph graph = data.getGraph();
     protected final int nbNodes = graph.size();
@@ -37,7 +37,6 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     
     @Override
     protected ShortestPathSolution doRun() {
-    	
     	/* Initialization */
         
         // Notify observers about the departure
@@ -106,5 +105,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         }
         return solution;
     }
+
+	
 
 }
