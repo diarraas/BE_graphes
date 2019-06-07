@@ -27,7 +27,7 @@ public class LaunchTest {
 		
 		PerformancesTest.launchTestDijkstraTime();
 		
-		System.out.println("Dijkstra TIme ----- OK");
+		System.out.println("Dijkstra Time ----- OK");
 		
 	}
 

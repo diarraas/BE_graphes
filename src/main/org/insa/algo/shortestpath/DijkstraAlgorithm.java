@@ -15,14 +15,18 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     }
     
     protected final ShortestPathData data = getInputData();
-    
     protected ShortestPathSolution solution ;
     protected final Graph graph = data.getGraph();
     protected final int nbNodes = graph.size();
     protected BinaryHeap<Label> heap = new BinaryHeap<>() ;
     protected int stats[] = new int[3] ;
     
-    protected Label[] initLabels() {
+    public int[] getStats() {
+		return stats;
+	}
+
+
+	protected Label[] initLabels() {
     	Label labels[] = new Label[nbNodes] ;
     	int i ;
     	for(i = 0; i < nbNodes; i++) {
@@ -30,14 +34,10 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         }
     	return labels;
     }
-    
-    public int[] getStats() {
-		return stats;
-	}
+   
     
     @Override
     protected ShortestPathSolution doRun() {
-    	
     	/* Initialization */
         
         // Notify observers about the departure
@@ -106,5 +106,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         }
         return solution;
     }
+
+	
 
 }
