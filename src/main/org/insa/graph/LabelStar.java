@@ -11,5 +11,6 @@ public class LabelStar extends Label implements Comparable<Label> {
 	public double getTotalCost() {
 		return (this.getCost() + this.distance_from_dest) ;
 	}
-	
 }
+
+

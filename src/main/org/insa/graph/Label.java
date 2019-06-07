@@ -7,7 +7,7 @@ public class Label implements Comparable<Label>{
 	private boolean marked ;
 	private double cost ;
 	private Node father ;
-	private int id ; //NumÃ©ro du sommet associÃ©
+	private int id ; //Numéro du sommet associé
 	
 	public Label(Node current) {
 		this.current_node = current ;

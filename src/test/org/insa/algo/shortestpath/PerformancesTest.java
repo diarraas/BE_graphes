@@ -34,27 +34,27 @@ public class PerformancesTest {
     public static void initAll() throws IOException {
     	
     	/*	Initializing Maps		*/
-    	
+    	/*
     	average_map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/belgium.mapgr";
         small_map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/chile.mapgr";
         bigger_map = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/california.mapgr";
         cars_only = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/midi-pyrenees.mapgr";
         no_car = "/home/commetud/3eme Annee MIC/Graphes-et-Algorithmes/Maps/fractal.mapgr";
         
-        /*
+        */
        
         average_map = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/belgium.mapgr";
-        small_map = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/chile.mapgr";
-        bigger_map = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/california.mapgr";
-        cars_only = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/Midi-pyrénées.mapgr";
+        //small_map = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/chile.mapgr";
+       // bigger_map = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/rhone-alpes.mapgr";
+        cars_only = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/midi-pyrenees.mapgr";
         no_car = "C:/Users/Assa Diarra/Documents/Uni/BE_graphes/libs/fractal.mapgr"; 
           
         /*	Initializing Readers	*/
         
-        small_reader = new BinaryGraphReader(
-				new DataInputStream(new BufferedInputStream(new FileInputStream(small_map))));
-    	bigger_reader = new BinaryGraphReader(
-				new DataInputStream(new BufferedInputStream(new FileInputStream(bigger_map))));
+        //small_reader = new BinaryGraphReader(
+			//	new DataInputStream(new BufferedInputStream(new FileInputStream(small_map))));
+    	//bigger_reader = new BinaryGraphReader(
+			//	new DataInputStream(new BufferedInputStream(new FileInputStream(bigger_map))));
     	average_reader = new BinaryGraphReader(
 				new DataInputStream(new BufferedInputStream(new FileInputStream(average_map))));
     	car_reader = new BinaryGraphReader(
@@ -64,9 +64,9 @@ public class PerformancesTest {
     	 
     	/*	Initializing Graphs		*/
     	
-    	small_graph = small_reader.read();
+    	//small_graph = small_reader.read();
     	average_graph = average_reader.read();
-    	bigger_graph = bigger_reader.read();
+    	//bigger_graph = bigger_reader.read();
     	cars_graph = car_reader.read();
     	no_car_graph = no_car_reader.read();
     	 
@@ -79,13 +79,13 @@ public class PerformancesTest {
     	int origin = 588713;
     	int destination = 71369 ;
     	
-    	for(i=0; i<20;i++) { //20 first couples of nodes on small map
+    	/*for(i=0; i<20;i++) { //20 first couples of nodes on small map
     		datas[i] = new ShortestPathData(small_graph,small_graph.get(origin), small_graph.get(destination), inspector_all);
     		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
     		astar[i] = new AStarAlgorithm(datas[i]);
     		origin = Math.abs((origin + (-1)*(i+1)*1234)%(small_graph.size()));
     		destination = Math.abs((destination - (-1)*(i+1)*1234)%(small_graph.size()));
-    	}
+    	}*/
     	
     	origin = 778946;
     	destination = 36231 ;
@@ -97,7 +97,7 @@ public class PerformancesTest {
         	destination = Math.abs((destination - (-1)*(i+1)*1234)%(average_graph.size()));
     	}
     	
-    	origin = 1712929;
+    	/*origin = 1712929;
     	destination = 928289 ;
     	for(i=40; i< 60;i++) { //20 third couples of nodes on bigger map
     		datas[i] = new ShortestPathData(bigger_graph,bigger_graph.get(origin), bigger_graph.get(destination), inspector_all);
@@ -105,11 +105,11 @@ public class PerformancesTest {
     		astar[i] = new AStarAlgorithm(datas[i]);
     		origin = Math.abs((origin + (-1)*(i+1)*1234)%(bigger_graph.size()));
         	destination = Math.abs((destination - (-1)*(i+1)*1234)%(bigger_graph.size()));
-    	}
+    	}*/
     	
     	origin = 388093 ;
     	destination =  237791;
-    	for(i=60; i < 80;i++) { //20 next couples of nodes on Midi-pyrénées map
+    	for(i=60; i < 80;i++) { //20 next couples of nodes on Midi-pyrennees map
     		datas[i] = new ShortestPathData(cars_graph,cars_graph.get(origin), cars_graph.get(destination), inspector_cars_length);
     		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
     		astar[i] = new AStarAlgorithm(datas[i]);
@@ -129,7 +129,7 @@ public class PerformancesTest {
     	
     	origin = 388093 ;
     	destination =  237791;
-    	for(i=100; i < 120;i++) { //20 last couples of nodes on Midi-pyrénées map(time wise)
+    	for(i=100; i < 120;i++) { //20 last couples of nodes on Midi-pyrennees map(time wise)
     		datas[i] = new ShortestPathData(cars_graph,cars_graph.get(origin), cars_graph.get(destination), inspector_cars_time);
     		dijkstra[i] = new DijkstraAlgorithm(datas[i]);
     		astar[i] = new AStarAlgorithm(datas[i]);
@@ -145,16 +145,16 @@ public class PerformancesTest {
 		BufferedWriter small = new BufferedWriter(new FileWriter("chile_distance_dijkstra_20_data.txt"));
 		BufferedWriter average = new BufferedWriter(new FileWriter("belgium_distance_dijkstra_20_data.txt"));
 		BufferedWriter big = new BufferedWriter(new FileWriter("california_distance_dijkstra_20_data.txt"));
-		BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrénées_distance_dijkstra_20_data.txt"));
+		BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrennees_distance_dijkstra_20_data.txt"));
 		BufferedWriter no_car = new BufferedWriter(new FileWriter("fractal_distance_dijkstra_20_data.txt"));
-		small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrénées\n");no_car.write("Fractal\n");
+		small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrennees\n");no_car.write("Fractal\n");
 		small.write("0\n20\nDijkstra\n"); average.write("0\n20\nDijkstra\n"); big.write("0 \n20\n Dijkstra\n"); cars.write("0\n20\nDijkstra\n");no_car.write("0\n20\nDijkstra\n");
 		int[] stats ;
-		for(i = 0; i < 20; i++) {
+		/*for(i = 0; i < 20; i++) {
 			solutions[i] = dijkstra[i].run();
 			stats = dijkstra[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())			small.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getLength()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
-		}
+		}*/
 
 		for(i = 20; i < 40; i++) {
 			solutions[i] = dijkstra[i].run();
@@ -162,12 +162,12 @@ public class PerformancesTest {
 			if(solutions[i] != null && solutions[i].isFeasible())			average.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getLength()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
 		}
 		
-		for(i = 40; i < 60; i++) {
+		/*for(i = 40; i < 60; i++) {
 			solutions[i] = dijkstra[i].run();
 			stats = dijkstra[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())			big.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getLength()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
 		}
-		
+		*/
 		for(i = 60; i < 80; i++) {
 			solutions[i] = dijkstra[i].run();
 			stats = dijkstra[i].getStats();
@@ -189,28 +189,28 @@ public class PerformancesTest {
 		BufferedWriter small = new BufferedWriter(new FileWriter("chile_distance_astar_20_data.txt"));
 		BufferedWriter average = new BufferedWriter(new FileWriter("belgium_distance_astar_20_data.txt"));
 		BufferedWriter big = new BufferedWriter(new FileWriter("california_distance_astar_20_data.txt"));
-		BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrénées_distance_astar_20_data.txt"));
+		BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrennees_distance_astar_20_data.txt"));
 		BufferedWriter no_car = new BufferedWriter(new FileWriter("fractal_distance_astar_20_data.txt"));
-		small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrénées\n");no_car.write("Fractal\n");
+		small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrennees\n");no_car.write("Fractal\n");
 		small.write("0\n20\nA*\n"); average.write("0\n20\nA*\n"); big.write("0\n20\nA*\n"); cars.write("0\n20\nA*\n");no_car.write("0\n20\nA*\n");
 		int[] stats ;
-		for(i = 0; i < 20; i++) {
+		/*for(i = 0; i < 20; i++) {
 			solutions[i] = astar[i].run();
 			stats = astar[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())average.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getLength()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
 		}
-		
+		*/
 		for(i = 20; i < 40; i++) {
 			solutions[i] = astar[i].run();
 			stats = astar[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())average.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getLength()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
 		}
-		
+		/*
 		for(i = 40; i < 60; i++) {
 			solutions[i] = astar[i].run();
 			stats = astar[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())		big.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getLength()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
-		}
+		}*/
 		
 		for(i = 60; i < 80; i++) {
 			solutions[i] = astar[i].run();
@@ -235,28 +235,28 @@ public class PerformancesTest {
 		BufferedWriter small = new BufferedWriter(new FileWriter("chile_temps_dijkstra_20_data.txt"));
 		BufferedWriter average = new BufferedWriter(new FileWriter("belgium_temps_dijkstra_20_data.txt"));
 		BufferedWriter big = new BufferedWriter(new FileWriter("california_temps_dijkstra_20_data.txt"));
-		BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrénées_temps_dijkstra_20_data.txt"));
+		BufferedWriter cars = new BufferedWriter(new FileWriter("midi-pyrennees_temps_dijkstra_20_data.txt"));
 		BufferedWriter no_car = new BufferedWriter(new FileWriter("fractal_temps_dijkstra_20_data.txt"));
-		small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrénées\n");no_car.write("Fractal\n");
+		small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrennees\n");no_car.write("Fractal\n");
 		small.write("1\n20\nDijkstra\n"); average.write("1\n20\nDijkstra\n"); big.write("0\n20\nDijkstra\n"); cars.write("0\n20\nDijkstra\n");no_car.write("0\n20\nDijkstra\n");
 		int[] stats ;
-		for(i = 0; i < 20; i++) {
+		/*for(i = 0; i < 20; i++) {
 			solutions[i] = dijkstra[i].run();
 			stats = dijkstra[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())			small.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getMinimumTravelTime()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
-		}
+		}*/
 		
 		for(i = 20; i < 40; i++) { 
 			solutions[i] = dijkstra[i].run();
 			stats = dijkstra[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())			average.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getMinimumTravelTime()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
 		}
-		
+		/*
 		for(i = 40; i < 60; i++) {
 			solutions[i] = dijkstra[i].run();
 			stats = dijkstra[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())			big.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getMinimumTravelTime()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
-		}
+		}*/
 		
 		for(i = 100; i < 120; i++) {
 			solutions[i] = dijkstra[i].run();
@@ -279,29 +279,29 @@ public class PerformancesTest {
 		BufferedWriter small = new BufferedWriter(new FileWriter("chile_temps_astar_20_data.txt"));
 		BufferedWriter average = new BufferedWriter(new FileWriter("belgium_temps_astar_20_data.txt"));
 		BufferedWriter big = new BufferedWriter(new FileWriter("california_temps_astar_20_data.txt"));
-		BufferedWriter cars = new BufferedWriter(new FileWriter("Midi-pyrénées_temps_astar_20_data.txt"));
+		BufferedWriter cars = new BufferedWriter(new FileWriter("Midi-pyrennees_temps_astar_20_data.txt"));
 		BufferedWriter no_car = new BufferedWriter(new FileWriter("fractal_temps_astar_20_data.txt"));
-		small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrénées\n");no_car.write("Fractal\n");
+		small.write("Chile\n"); average.write("Belgium\n"); big.write("California\n"); cars.write("Midi-pyrennees\n");no_car.write("Fractal\n");
 		small.write("1\n20\nA*\n"); average.write("1\n20\nA*\n"); big.write("0\n20\nA*\n"); cars.write("0\n20\nA*\n");no_car.write("0\n20\nA*\n");
 		int[] stats ;
-		for(i =0 ; i < 20; i++) { 
+		/*for(i =0 ; i < 20; i++) { 
 			solutions[i] = astar[i].run();
 			stats = astar[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())		small.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getMinimumTravelTime()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
-		}
+		}*/
 		
 		for(i = 20; i < 40; i++) {
 			solutions[i] = astar[i].run();
 			stats = astar[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())		average.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getMinimumTravelTime()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
 		}
-		 
+		/* 
 		for(i = 40; i < 60; i++) {
 			solutions[i] = astar[i].run();
 			stats = astar[i].getStats();
 			if(solutions[i] != null && solutions[i].isFeasible())		big.write(""+datas[i].getOrigin().getId()+"\t"+datas[i].getDestination().getId()+"\t"+solutions[i].getPath().getMinimumTravelTime()+"\t"+solutions[i].getSolvingTime().toMillis()+"\t"+stats[0]+"\t"+stats[1]+"\n");
 		} 
-		
+		*/
 		for(i = 100; i < 120; i++) {
 			solutions[i] = astar[i].run();
 			stats = astar[i].getStats();
